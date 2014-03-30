@@ -1,0 +1,18 @@
+<?php
+
+class IslandsTableSeeder extends Seeder {
+
+	public function run()
+	{
+		// Uncomment the below to wipe the table clean before populating
+		// DB::table('islands')->truncate();
+
+		$islands = array(
+
+		);
+
+		// Uncomment the below to run the seeder
+		// DB::table('islands')->insert($islands);
+	}
+
+}

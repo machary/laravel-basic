@@ -1,0 +1,4 @@
+19 January 2014
+Modify the scaffold.blade.php
+	- add @include('includes.head')
+	- add navigation bar
