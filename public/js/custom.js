@@ -1,8 +1,8 @@
 $(function() {
-    $("#datatables").dataTable({
+   /* $("#datatables").dataTable({
         "bProcessing": true,
         "sAjaxSource": "cmos/response"
-    });
+    }); */
 
 
 

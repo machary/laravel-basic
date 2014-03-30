@@ -7,16 +7,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="../" class="navbar-brand">Your Brand</a>
+            <a href="{{{ URL::to('') }}}" class="navbar-brand">Your Brand</a>
         </div>
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" role="button" id="drop2" href="#" >CRUD<b class="caret"></b></a>
                     <ul aria-labelledby="drop2" role="menu" class="dropdown-menu">
-                        <li role="presentation"><a href="islands" tabindex="-1" role="menuitem">Islands</a></li>
+                        <li role="presentation"><a href="{{{ URL::to('islands') }}}" tabindex="-1" role="menuitem">Islands</a></li>
                         <li class="divider" role="presentation"></li>
-                        <li role="presentation"><a href="provinces" tabindex="-1" role="menuitem">Provinces</a></li>
+                        <li role="presentation"><a href="{{{ URL::to('provinces') }}}" tabindex="-1" role="menuitem">Provinces</a></li>
                     </ul>
                 </li>
                 <li class="active">
@@ -33,9 +33,11 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="../about">About</a>
-                </li>
+                @if ( Auth::guest() )
+                <li>{{ HTML::link('login', 'Login') }}</li>
+                @else
+                <li>{{ HTML::link('logout', 'Logout') }}</li>
+                @endif
             </ul>
         </nav>
     </div>

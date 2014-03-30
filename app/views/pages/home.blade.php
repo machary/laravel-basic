@@ -1,5 +1,7 @@
-@extends('layouts.master')
+@extends('layouts.scaffold')
+<br>
+<br>
 
-@section('content')
-<p>This is my body content.</p>
+@section('main')
+<p>Welcome, This is Home content.</p>
 @stop

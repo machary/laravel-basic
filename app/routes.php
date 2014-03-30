@@ -13,10 +13,22 @@
 
 Route::get('/', 'HomeController@index');
 
-Route::get('cmos/response','CmosController@response');
+// Authentication
+Route::get('login', array('as' => 'login', 'uses' => 'AuthController@showLogin'));
+Route::post('login', 'AuthController@postLogin');
+Route::get('logout', 'AuthController@getLogout');
 
-Route::resource('/cmos', 'CmosController');
+// Admin-Routes
+Route::group(array('before' => 'auth'), function()
+{
+    Route::get('admin', 'HomeController@showAdmin');
 
-Route::resource('islands', 'IslandsController');
+    Route::get('cmos/response','CmosController@response');
 
-Route::resource('provinces', 'ProvincesController');
+    Route::resource('/cmos', 'CmosController');
+
+    Route::resource('islands', 'IslandsController');
+
+    Route::resource('provinces', 'ProvincesController');
+});
+
