@@ -30,5 +30,13 @@ Route::group(array('before' => 'auth'), function()
     Route::resource('islands', 'IslandsController');
 
     Route::resource('provinces', 'ProvincesController');
+
+    Route::resource('users', 'UsersController');
+
+    Route::resource('roles', 'RolesController');
 });
+
+
+
+
 

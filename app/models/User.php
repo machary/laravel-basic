@@ -4,6 +4,7 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
+    protected $guarded = array();
 
     /**
      * The database table used by the model.
@@ -11,6 +12,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      * @var string
      */
     protected $table = 'users';
+    protected $primaryKey = 'id';
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -24,6 +26,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      *
      * @return mixed
      */
+
+    public static $rules = array(
+        'id' => 'required',
+        'fullname' => 'required',
+        'password' => 'required|Min:5',
+        'email'    => 'required',
+        'role_id'  => 'required',
+        'status'   => 'required'
+
+    );
     public function getAuthIdentifier()
     {
         return $this->getKey();

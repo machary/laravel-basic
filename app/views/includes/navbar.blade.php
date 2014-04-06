@@ -12,17 +12,22 @@
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" role="button" id="drop2" href="#" >CRUD<b class="caret"></b></a>
+                    <a data-toggle="dropdown" class="dropdown-toggle" role="button" id="drop1" href="#" >CRUD<b class="caret"></b></a>
                     <ul aria-labelledby="drop2" role="menu" class="dropdown-menu">
                         <li role="presentation"><a href="{{{ URL::to('islands') }}}" tabindex="-1" role="menuitem">Islands</a></li>
                         <li class="divider" role="presentation"></li>
                         <li role="presentation"><a href="{{{ URL::to('provinces') }}}" tabindex="-1" role="menuitem">Provinces</a></li>
                     </ul>
                 </li>
-                <li class="active">
-                    <a href="css">Dashboard</a>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" role="button" id="drop2" href="#" >Management<b class="caret"></b></a>
+                    <ul aria-labelledby="drop2" role="menu" class="dropdown-menu">
+                        <li role="presentation"><a href="{{{ URL::to('users') }}}" tabindex="-1" role="menuitem">User Login</a></li>
+                        <li class="divider" role="presentation"></li>
+                        <li role="presentation"><a href="{{{ URL::to('roles') }}}" tabindex="-1" role="menuitem">Roles</a></li>
+                    </ul>
                 </li>
-                <li>
+                <li class="active">
                     <a href="../components">Menu Three</a>
                 </li>
                 <li>

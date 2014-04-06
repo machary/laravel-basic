@@ -6,6 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddForeignkeysToUsersTable' => $baseDir . '/app/database/migrations/2014_04_06_165352_add_foreignkeys_to_users_table.php',
+    'AddRoleIdToUsersTable' => $baseDir . '/app/database/migrations/2014_04_06_162448_add_role_id_to_users_table.php',
+    'AuthController' => $baseDir . '/app/controllers/AuthController.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
     'Bllim\\Datatables\\Datatables' => $vendorDir . '/bllim/datatables/src/Bllim/Datatables/Datatables.php',
     'Bllim\\Datatables\\DatatablesServiceProvider' => $vendorDir . '/bllim/datatables/src/Bllim/Datatables/DatatablesServiceProvider.php',
@@ -35,6 +38,7 @@ return array(
     'CmosController' => $baseDir . '/app/controllers/CmosController.php',
     'CreateIslandsTable' => $baseDir . '/app/database/migrations/2014_03_26_154044_create_islands_table.php',
     'CreateProvincesTable' => $baseDir . '/app/database/migrations/2014_03_26_154904_create_provinces_table.php',
+    'CreateRolesTable' => $baseDir . '/app/database/migrations/2014_04_06_161212_create_roles_table.php',
     'CreateUsersTable' => $baseDir . '/app/database/migrations/2014_03_30_160008_create_users_table.php',
     'Crypt_AES' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/AES.php',
     'Crypt_Base' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/Base.php',
@@ -956,6 +960,9 @@ return array(
     'Psr\\Log\\LoggerInterface' => $vendorDir . '/psr/log/Psr/Log/LoggerInterface.php',
     'Psr\\Log\\LoggerTrait' => $vendorDir . '/psr/log/Psr/Log/LoggerTrait.php',
     'Psr\\Log\\NullLogger' => $vendorDir . '/psr/log/Psr/Log/NullLogger.php',
+    'Role' => $baseDir . '/app/models/Role.php',
+    'RolesController' => $baseDir . '/app/controllers/RolesController.php',
+    'RolesTableSeeder' => $baseDir . '/app/database/seeds/RolesTableSeeder.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
     'Stack\\Builder' => $vendorDir . '/stack/builder/src/Stack/Builder.php',
     'Stack\\StackedHttpKernel' => $vendorDir . '/stack/builder/src/Stack/StackedHttpKernel.php',
@@ -1449,6 +1456,8 @@ return array(
     'Symfony\\Component\\Translation\\Writer\\TranslationWriter' => $vendorDir . '/symfony/translation/Symfony/Component/Translation/Writer/TranslationWriter.php',
     'TestCase' => $baseDir . '/app/tests/TestCase.php',
     'User' => $baseDir . '/app/models/User.php',
+    'UsersController' => $baseDir . '/app/controllers/UsersController.php',
+    'UsersTableSeeder' => $baseDir . '/app/database/seeds/UsersTableSeeder.php',
     'Way\\Generators\\Cache' => $vendorDir . '/way/generators/src/Way/Generators/Cache.php',
     'Way\\Generators\\Commands\\BaseGeneratorCommand' => $vendorDir . '/way/generators/src/Way/Generators/Commands/BaseGeneratorCommand.php',
     'Way\\Generators\\Commands\\ControllerGeneratorCommand' => $vendorDir . '/way/generators/src/Way/Generators/Commands/ControllerGeneratorCommand.php',
