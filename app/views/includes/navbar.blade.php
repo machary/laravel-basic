@@ -28,7 +28,7 @@
                     </ul>
                 </li>
                 <li class="active">
-                    <a href="../components">Menu Three</a>
+                    <a href="{{{ URL::to('posts') }}}">Post</a>
                 </li>
                 <li>
                     <a href="../javascript">Menu Four</a>

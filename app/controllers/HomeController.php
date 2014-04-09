@@ -17,7 +17,8 @@ class HomeController extends BaseController {
     protected $layout = 'layouts.scaffold';
 
     public function index(){
-        return View::make('pages.home');
+        $r_post = Post::all();
+        return View::make('pages.home',compact('r_post'));
     }
 
     public function showAdmin()

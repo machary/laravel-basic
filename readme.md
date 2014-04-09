@@ -4,13 +4,13 @@ Web application with basic features
 ### Requirements
 1. PHP Version 5.5.3
 2. Mysql Database
-3. Laravel 4
+3. Laravel 4.1
 4. Jeffry Way Generator (Version 1.0) - https://github.com/JeffreyWay/Laravel-4-Generators
 
 ### Features
 1. Basic Authentication
 2. User & Role Management
-3. CRUD Example
+3. Simple post
 
 ### Implemented Tutorial
 1. Jeffry Way Generator (Version 1.0) - Automatic CRUD Form Generator
