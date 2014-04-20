@@ -143,6 +143,17 @@ class Connection implements ConnectionInterface {
 	}
 
 	/**
+	 * Get the contents of a remote file.
+	 *
+	 * @param  string  $remote
+	 * @return string
+	 */
+	public function getString($remote)
+	{
+		return $this->getGateway()->getString($remote);
+	}
+
+	/**
 	 * Upload a local file to the server.
 	 *
 	 * @param  string  $local
@@ -221,6 +232,8 @@ class Connection implements ConnectionInterface {
 	 * Get the gateway implementation.
 	 *
 	 * @return \Illuminate\Remote\GatewayInterface
+	 *
+	 * @throws \RuntimeException
 	 */
 	public function getGateway()
 	{

@@ -17,7 +17,7 @@ class HomeController extends BaseController {
     protected $layout = 'layouts.scaffold';
 
     public function index(){
-        $r_post = Post::all();
+        $r_post = Post::paginate(3);
         return View::make('pages.home',compact('r_post'));
     }
 

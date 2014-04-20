@@ -7,13 +7,15 @@
 
 @foreach($r_post as $val)
     <div class="post">
-        <h3>{{ $val->title }}</h3>
-        <span>{{ $val->updated_at }} | {{ $val->author }}</span>
-        <p>
-            {{ $val->content }}
-        </p>
+        <img class="post-thumb" src="{{{ URL::to('uploads/images/thumbs/'.$val->image_path) }}}" />
+        <div>
+            <h3><a href="{{ URL::to('posts/'.$val->id) }}">{{ $val->title }}</a></h3>
+            <span>{{ $val->updated_at }} | {{ $val->author }}</span>
+            <p>{{ $val->content }}</p>
+        </div>
     </div>
-
 @endforeach
+
+{{ $r_post->links() }}
 
 @stop

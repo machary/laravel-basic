@@ -109,14 +109,17 @@ class Route {
 	 * Determine if the route matches given request.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
+	 * @param  bool  $includingMethod
 	 * @return bool
 	 */
-	public function matches(Request $request)
+	public function matches(Request $request, $includingMethod = true)
 	{
 		$this->compileRoute();
 
 		foreach ($this->getValidators() as $validator)
 		{
+			if ( ! $includingMethod && $validator instanceof MethodValidator) continue;
+
 			if ( ! $validator->matches($this, $request)) return false;
 		}
 
@@ -291,6 +294,19 @@ class Route {
 		$this->parameters();
 
 		$this->parameters[$name] = $value;
+	}
+
+	/**
+	 * Unset a parameter on the route if it is set.
+	 *
+	 * @param  string $name
+	 * @return void
+	 */
+	public function forgetParameter($name)
+	{
+		$this->parameters();
+
+		unset($this->parameters[$name]);
 	}
 
 	/**
@@ -674,7 +690,7 @@ class Route {
 	 */
 	public function httpOnly()
 	{
-		return in_array('http', $this->action);
+		return in_array('http', $this->action, true);
 	}
 
 	/**
@@ -694,7 +710,7 @@ class Route {
 	 */
 	public function secure()
 	{
-		return in_array('https', $this->action);
+		return in_array('https', $this->action, true);
 	}
 
 	/**
@@ -728,6 +744,16 @@ class Route {
 		$this->uri = $uri;
 
 		return $this;
+	}
+
+	/**
+	 * Get the prefix of the route instance.
+	 *
+	 * @return string
+	 */
+	public function getPrefix()
+	{
+		return array_get($this->action, 'prefix');
 	}
 
 	/**
@@ -776,7 +802,7 @@ class Route {
 	/**
 	 * Get the compiled version of the route.
 	 *
-	 * @return void
+	 * @return \Symfony\Component\Routing\CompiledRoute
 	 */
 	public function getCompiled()
 	{

@@ -48,8 +48,22 @@ class PostsController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$this->post->create($input);
+            if(Input::hasFile('image_path')){
+                $destinationPath    = 'uploads/images/'; // The destination were you store the image.
+                $file = Input::file('image_path');
+                $filename = $file->getClientOriginalName(); // Original file name that the end user used for it.
+                Image::make($file->getRealPath())
+                       ->resize(null, 100, true, false) //resize ($width,$height,$ratio, $upsize )
+                       ->save($destinationPath.'thumbs/'.$filename);
 
+                $file->move($destinationPath, $filename); // Now we move the file to its new home.
+                $input['image_path'] = $filename;
+            }
+            else{
+                $input['image_path'] = '';
+            }
+
+			$this->post->create($input);
 			return Redirect::route('posts.index');
 		}
 
@@ -103,6 +117,27 @@ class PostsController extends BaseController {
 
 		if ($validation->passes())
 		{
+            $oldimage = Post::find($id);
+            if(Input::hasFile('image_path')){
+                $destinationPath    = 'uploads/images/'; // The destination were you store the image.
+                $file = Input::file('image_path');
+                $filename = $file->getClientOriginalName(); // Original file name that the end user used for it.
+
+                //find old image and delete it
+                File::delete($destinationPath. $oldimage['image_path']);
+                File::delete($destinationPath.'thumbs/'.$oldimage['image_path']);
+
+                Image::make($file->getRealPath())
+                    ->resize(null, 100, true, false) //resize ($width,$height,$ratio, $upsize )
+                    ->save($destinationPath.'thumbs/'.$filename);
+
+                $file->move($destinationPath, $filename); // Now we move the file to its new home.
+                $input['image_path'] = $filename;
+            }
+            else{
+                $input['image_path'] = $oldimage['image_path'];
+            }
+
 			$post = $this->post->find($id);
 			$post->update($input);
 
@@ -123,7 +158,13 @@ class PostsController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->post->find($id)->delete();
+        $image = Post::find($id);
+        //find old image and delete it
+        $destinationPath    = 'uploads/images/'; // The destination were you store the image.
+        File::delete($destinationPath. $image['image_path']);
+        File::delete($destinationPath.'thumbs/'.$image['image_path']);
+
+        $this->post->find($id)->delete();
 
 		return Redirect::route('posts.index');
 	}

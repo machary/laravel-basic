@@ -27,7 +27,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	 *
 	 * @var string
 	 */
-	const VERSION = '4.1.18';
+	const VERSION = '4.1.28';
 
 	/**
 	 * Indicates if the application has "booted".
@@ -336,7 +336,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	}
 
 	/**
-	 * Get the registered service provider instnace if it exists.
+	 * Get the registered service provider instance if it exists.
 	 *
 	 * @param  \Illuminate\Support\ServiceProvider|string  $provider
 	 * @return \Illuminate\Support\ServiceProvider|null
@@ -418,7 +418,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	}
 
 	/**
-	 * Register a deffered provider and service.
+	 * Register a deferred provider and service.
 	 *
 	 * @param  string  $provider
 	 * @param  string  $service
@@ -730,6 +730,11 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 			if ( ! is_null($response)) return $this->prepareResponse($response, $request);
 		}
 
+		if ($this->runningUnitTests() && ! $this['session']->isStarted())
+		{
+			$this['session']->start();
+		}
+
 		return $this['router']->dispatch($this->prepareRequest($request));
 	}
 
@@ -975,6 +980,17 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 	}
 
 	/**
+	 * Determine if the given service is a deferred service.
+	 *
+	 * @param  string  $service
+	 * @return bool
+	 */
+	public function isDeferredService($service)
+	{
+		return isset($this->deferredServices[$service]);
+	}
+
+	/**
 	 * Get or set the request class for the application.
 	 *
 	 * @param  string  $class
@@ -1049,6 +1065,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 			'app'            => 'Illuminate\Foundation\Application',
 			'artisan'        => 'Illuminate\Console\Application',
 			'auth'           => 'Illuminate\Auth\AuthManager',
+			'auth.reminder.repository' => 'Illuminate\Auth\Reminders\ReminderRepositoryInterface',
 			'blade.compiler' => 'Illuminate\View\Compilers\BladeCompiler',
 			'cache'          => 'Illuminate\Cache\CacheManager',
 			'cache.store'    => 'Illuminate\Cache\Repository',
@@ -1056,7 +1073,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
 			'cookie'         => 'Illuminate\Cookie\CookieJar',
 			'encrypter'      => 'Illuminate\Encryption\Encrypter',
 			'db'             => 'Illuminate\Database\DatabaseManager',
-			'events'         => 'Illuminate\Events\Dispatacher',
+			'events'         => 'Illuminate\Events\Dispatcher',
 			'files'          => 'Illuminate\Filesystem\Filesystem',
 			'form'           => 'Illuminate\Html\FormBuilder',
 			'hash'           => 'Illuminate\Hashing\HasherInterface',

@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/bootstrap-theme.min.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('css/custom/form-style.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('css/custom/custom-styles.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('css/datatables/jquery.dataTables.css') }}">
 
 <!-- Scripts-->

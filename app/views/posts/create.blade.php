@@ -4,7 +4,7 @@
 
 <h1>Create Post</h1>
 
-{{ Form::open(array('route' => 'posts.store')) }}
+{{ Form::open(array('route' => 'posts.store','files' => true, 'method' => 'post')) }}
 	<ul>
         <li>
             {{ Form::label('author', 'Author:') }}
@@ -14,6 +14,11 @@
         <li>
             {{ Form::label('title', 'Title:') }}
             {{ Form::text('title') }}
+        </li>
+
+        <li>
+            {{ Form::label('image_path', 'Post Image:') }}
+            {{ Form::file('image_path') }}
         </li>
 
         <li>

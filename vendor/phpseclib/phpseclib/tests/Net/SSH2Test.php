@@ -1,24 +1,13 @@
 <?php
 
 /**
- * @author     Marc Scholten <marc@pedigital.de>
- * @copyright  MMXIII Marc Scholten
- * @license    http://www.opensource.org/licenses/mit-license.html  MIT License
+ * @author    Marc Scholten <marc@pedigital.de>
+ * @copyright MMXIII Marc Scholten
+ * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 
 class Net_SSH2Test extends PhpseclibTestCase
 {
-    /**
-     * @return Net_SSH2
-     */
-    private function createSSHMock()
-    {
-        return $this->getMockBuilder('Net_SSH2')
-            ->disableOriginalConstructor()
-            ->setMethods(array('__destruct'))
-            ->getMock();
-    }
-
     public function formatLogDataProvider()
     {
         return array(
@@ -65,12 +54,12 @@ class Net_SSH2Test extends PhpseclibTestCase
     public function testGenerateIdentifier($expected, array $requiredExtensions)
     {
         $notAllowed = array('gmp', 'bcmath', 'mcrypt', 'gmp');
-        foreach($notAllowed as $notAllowedExtension) {
-            if(in_array($notAllowedExtension, $requiredExtensions)) {
+        foreach ($notAllowed as $notAllowedExtension) {
+            if (in_array($notAllowedExtension, $requiredExtensions)) {
                 continue;
             }
 
-            if(extension_loaded($notAllowedExtension)) {
+            if (extension_loaded($notAllowedExtension)) {
                 $this->markTestSkipped('Extension ' . $notAllowedExtension . ' is not allowed for this data-set');
             }
         }
@@ -81,4 +70,56 @@ class Net_SSH2Test extends PhpseclibTestCase
         $this->assertEquals($expected, $identifier);
     }
 
+    public function testGetExitStatusIfNotConnected()
+    {
+        $ssh = $this->createSSHMock();
+
+        $this->assertFalse($ssh->getExitStatus());
+    }
+
+    public function testPTYIDefaultValue()
+    {
+        $ssh = $this->createSSHMock();
+        $this->assertFalse($ssh->isPTYEnabled());
+    }
+
+    public function testEnablePTY()
+    {
+        $ssh = $this->createSSHMock();
+
+        $ssh->enablePTY();
+        $this->assertTrue($ssh->isPTYEnabled());
+
+        $ssh->disablePTY();
+        $this->assertFalse($ssh->isPTYEnabled());
+    }
+
+    public function testQuietModeDefaultValue()
+    {
+        $ssh = $this->createSSHMock();
+
+        $this->assertFalse($ssh->isQuietModeEnabled());
+    }
+
+    public function testEnableQuietMode()
+    {
+        $ssh = $this->createSSHMock();
+
+        $ssh->enableQuietMode();
+        $this->assertTrue($ssh->isQuietModeEnabled());
+
+        $ssh->disableQuietMode();
+        $this->assertFalse($ssh->isQuietModeEnabled());
+    }
+
+    /**
+     * @return Net_SSH2
+     */
+    protected function createSSHMock()
+    {
+        return $this->getMockBuilder('Net_SSH2')
+            ->disableOriginalConstructor()
+            ->setMethods(array('__destruct'))
+            ->getMock();
+    }
 }

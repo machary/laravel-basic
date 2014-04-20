@@ -3,7 +3,8 @@
 @section('main')
 
 <h1>Edit Post</h1>
-{{ Form::model($post, array('method' => 'PATCH', 'route' => array('posts.update', $post->id))) }}
+
+{{ Form::model($post, array('method' => 'PATCH','files' => true, 'route' => array('posts.update', $post->id))) }}
 	<ul>
         <li>
             {{ Form::label('author', 'Author:') }}
@@ -13,6 +14,18 @@
         <li>
             {{ Form::label('title', 'Title:') }}
             {{ Form::text('title') }}
+        </li>
+
+        <li>
+            {{ Form::label('image_path', 'Post Image:') }}
+            {{ Form::file('image_path',array('style'=>'display:none')) }}
+
+            @if($post->image_path<>'') <!--check image exist or not -->
+            <img id="img-thumb" src="{{{ URL::to('uploads/images/thumbs/'.$post->image_path) }}}" />
+            <a id="post-img-change" href="#">Change This Image</a>
+            @else
+            {{ Form::file('image_path') }}
+            @endif
         </li>
 
         <li>

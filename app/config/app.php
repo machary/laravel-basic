@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'Asia/Jakarta',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -108,6 +108,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Way\Generators\GeneratorsServiceProvider',
         'Bllim\Datatables\DatatablesServiceProvider',
+        'Intervention\Image\ImageServiceProvider'
 
 	),
 
@@ -175,6 +176,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
         'Datatables'      => 'Bllim\Datatables\Datatables',
+        'Image'           => 'Intervention\Image\Facades\Image'
 
 	),
 

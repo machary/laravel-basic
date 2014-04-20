@@ -297,7 +297,7 @@ class UrlGenerator {
 
 		// Lastly, if there are still parameters remaining, we will fetch the numeric
 		// parameters that are in the array and add them to the query string or we
-		// will build the intial query string if it wasn't started with strings.
+		// will make the initial query string if it wasn't started with strings.
 		if (count($keyed) < count($parameters))
 		{
 			$query .= '&'.implode(
@@ -355,7 +355,7 @@ class UrlGenerator {
 	}
 
 	/**
-	 * Get the domain and schee for the route.
+	 * Get the domain and scheme for the route.
 	 *
 	 * @param  \Illuminate\Routing\Route  $route
 	 * @return string
@@ -373,7 +373,7 @@ class UrlGenerator {
 	 */
 	protected function addPortToDomain($domain)
 	{
-		if ($this->request->getPort() == '80')
+		if (in_array($this->request->getPort(), array('80', '443')))
 		{
 			return $domain;
 		}
@@ -398,7 +398,7 @@ class UrlGenerator {
 	/**
 	 * Get the scheme for the given route.
 	 *
-	 * @param  \Illumiante\Routing\Route  $route
+	 * @param  \Illuminate\Routing\Route  $route
 	 * @return string
 	 */
 	protected function getRouteScheme($route)

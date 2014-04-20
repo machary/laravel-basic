@@ -1,0 +1,24 @@
+.post{
+    margin-bottom:10px;
+    float:left;
+}
+.post div{
+    float:left;
+
+}
+
+.post div h3{
+    margin-top: 0;
+}
+
+.post div p{
+    max-width:900px;
+}
+
+.post-thumb{
+    float:left;
+    padding:2px;
+    border:1px solid grey;
+    margin-right:10px;
+    min-width: 160px;
+}
