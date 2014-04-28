@@ -1,7 +1,6 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/html">
 	<head>
-		<meta charset="utf-8">
         @include('includes.head')
 		<style>
 			table form { margin-bottom: 0; }

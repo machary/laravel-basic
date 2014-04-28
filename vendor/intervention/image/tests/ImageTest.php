@@ -65,6 +65,16 @@ class ImageTest extends PHPUnit_Framework_Testcase
     }
 
     /**
+     * @expectedException Intervention\Image\Exception\ImageNotFoundException
+     */
+    public function testConstructorWithNonAsciiCharacters()
+    {
+        // file does not exists but path string should NOT be considered
+        // as binary data. (should _NOT_ throw InvalidImageDataStringException)
+        $img = new Image('public/Über.jpg');
+    }
+
+    /**
      * @expectedException Intervention\Image\Exception\InvalidImageTypeException
      */
     public function testContructorWithPathInvalidType()
@@ -534,6 +544,31 @@ class ImageTest extends PHPUnit_Framework_Testcase
         $this->assertEquals('#000000', $img->pickColor(0, 0, 'hex'));
         $this->assertEquals('#ffffff', $img->pickColor(3, 50, 'hex'));
         $this->assertEquals('#ffa600', $img->pickColor(799, 649, 'hex'));
+
+        // resize with emerging transparent area
+        $img = $this->getTestImage();
+        $img->resizeCanvas(900, 700, 'center', false, array(0, 0, 0, 0));
+        $this->assertInstanceOf('Intervention\Image\Image', $img);
+        $this->assertInternalType('int', $img->width);
+        $this->assertInternalType('int', $img->height);
+        $this->assertEquals($img->width, 900);
+        $this->assertEquals($img->height, 700);
+        $transparency_1 = $img->pickColor(0, 0, 'array');
+        $transparency_2 = $img->pickColor(899, 699, 'array');
+        $this->assertEquals(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0.0), $transparency_1);
+        $this->assertEquals(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0.0), $transparency_2);
+
+        // preserve transparency when resizing canvas
+        $img = new Image('public/circle.png');
+        $img->resizeCanvas(40, 40, 'center');
+        $this->assertInstanceOf('Intervention\Image\Image', $img);
+        $this->assertInternalType('int', $img->width);
+        $this->assertInternalType('int', $img->height);
+        $this->assertEquals($img->width, 40);
+        $this->assertEquals($img->height, 40);
+        $this->assertEquals(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0.0), $img->pickColor(0, 0, 'array'));
+        $this->assertEquals(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0.8), $img->pickColor(20, 20, 'array'));
+
     }
 
     public function testCropImage()
@@ -1454,6 +1489,15 @@ class ImageTest extends PHPUnit_Framework_Testcase
         $this->assertEquals('#00ff00', $img->pickColor(0, 0, 'hex'));
     }
 
+    public function testBackupKeepTransparency($value='')
+    {
+        $img = new Image('public/circle.png');
+        $img->backup();
+        $img->reset();
+        $transparent = array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0.0);
+        $this->assertEquals($transparent, $img->pickColor(0, 0, 'array'));
+    }
+
     public function testLimitColors()
     {
         // reduce colors
@@ -1642,11 +1686,25 @@ class ImageTest extends PHPUnit_Framework_Testcase
         $this->assertInternalType('int', $color);
         $this->assertEquals($color, 0);
 
+        $color = $img->parseColor('rgba(0,0,0,0)');
+        $this->assertInternalType('int', $color);
+        $this->assertEquals($color, 2130706432);
+
         $color = $img->parseColor('rgba(0,0,0,0.5)');
         $this->assertInternalType('int', $color);
+        $this->assertEquals($color, 1073741824);
 
         $color = $img->parseColor('rgba(255, 0, 0, 0.5)');
         $this->assertInternalType('int', $color);
+        $this->assertEquals($color, 1090453504);
+
+        $color = $img->parseColor(array(0, 0, 0, 0.5));
+        $this->assertInternalType('int', $color);
+        $this->assertEquals($color, 1073741824);
+
+        $color = $img->parseColor(array(0, 0, 0, 0));
+        $this->assertInternalType('int', $color);
+        $this->assertEquals($color, 2130706432);
     }
 
     /**

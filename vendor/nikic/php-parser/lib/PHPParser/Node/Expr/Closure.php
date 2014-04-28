@@ -1,38 +1,33 @@
 <?php
 
-namespace PhpParser\Node\Expr;
-
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-
 /**
- * @property Node[]       $stmts  Statements
- * @property Node\Param[] $params Parameters
- * @property ClosureUse[] $uses   use()s
- * @property bool         $byRef  Whether to return by reference
- * @property bool         $static Whether the closure is static
+ * @property PHPParser_Node[]                 $stmts  Statements
+ * @property PHPParser_Node_Param[]           $params Parameters
+ * @property PHPParser_Node_Expr_ClosureUse[] $uses   use()s
+ * @property bool                             $byRef  Whether to return by reference
+ * @property bool                             $static Whether the closure is static
  */
-class Closure extends Expr
+class PHPParser_Node_Expr_Closure extends PHPParser_Node_Expr
 {
     /**
      * Constructs a lambda function node.
      *
      * @param array $subNodes   Array of the following optional subnodes:
-     *                          'static' => false  : Whether the closure is static
-     *                          'byRef'  => false  : Whether to return by reference
+     *                          'stmts'  => array(): Statements
      *                          'params' => array(): Parameters
      *                          'uses'   => array(): use()s
-     *                          'stmts'  => array(): Statements
+     *                          'byRef'  => false  : Whether to return by reference
+     *                          'static' => false  : Whether the closure is static
      * @param array $attributes Additional attributes
      */
     public function __construct(array $subNodes = array(), array $attributes = array()) {
         parent::__construct(
-            array(
-                'static' => isset($subNodes['static']) ? $subNodes['static'] : false,
-                'byRef'  => isset($subNodes['byRef'])  ? $subNodes['byRef']  : false,
-                'params' => isset($subNodes['params']) ? $subNodes['params'] : array(),
-                'uses'   => isset($subNodes['uses'])   ? $subNodes['uses']   : array(),
-                'stmts'  => isset($subNodes['stmts'])  ? $subNodes['stmts']  : array(),
+            $subNodes + array(
+                'stmts'  => array(),
+                'params' => array(),
+                'uses'   => array(),
+                'byRef'  => false,
+                'static' => false,
             ),
             $attributes
         );

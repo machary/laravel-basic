@@ -11,7 +11,7 @@
         <div>
             <h3><a href="{{ URL::to('posts/'.$val->id) }}">{{ $val->title }}</a></h3>
             <span>{{ $val->updated_at }} | {{ $val->author }}</span>
-            <p>{{ $val->content }}</p>
+            <p>{{ substr($val->content,0,250) }}...</p>
         </div>
     </div>
 @endforeach

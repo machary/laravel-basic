@@ -102,15 +102,15 @@ class Image
                 // image properties come from gd image resource
                 $this->initFromResource($source);
 
-            } elseif ($this->isBinary($source)) {
-
-                // image properties come from binary image string
-                $this->initFromString($source);
-
             } elseif (filter_var($source, FILTER_VALIDATE_URL)) {
 
                 // image will be fetched from url before init
                 $this->initFromString(file_get_contents($source));
+
+            } elseif ($this->isBinary($source)) {
+
+                // image properties come from binary image string
+                $this->initFromString($source);
 
             } else {
 
@@ -504,8 +504,10 @@ class Image
 
         // create new canvas
         $image = imagecreatetruecolor($width, $height);
+        imagealphablending($image, false);
+        imagesavealpha($image, true);
 
-        if ($width > $this->width || $height > $this->height) {
+        if ($width > $this->width or $height > $this->height) {
             $bgcolor = is_null($bgcolor) ? '000000' : $bgcolor;
             imagefill($image, 0, 0, $this->parseColor($bgcolor));
         }
@@ -1205,6 +1207,7 @@ class Image
      * @param  integer $pos_y
      * @param  integer $width
      * @param  integer $height
+     * @param  boolean $filled
      * @return Image
      */
     public function ellipse($color, $pos_x = 0, $pos_y = 0, $width = 10, $height = 10, $filled = true)
@@ -1236,9 +1239,9 @@ class Image
      * @param  string  $text
      * @param  integer $posx
      * @param  integer $posy
-     * @param  integer $angle
-     * @param  integer $size
+     * @param  mixed   $size_or_callback
      * @param  string  $color
+     * @param  integer $angle
      * @param  string  $fontfile
      * @return Image
      */
@@ -1789,18 +1792,15 @@ class Image
     }
 
     /**
-     * Checks if string contains printable characters
+     * Checks if string contains binary image data
      *
      * @param  mixed   $input
      * @return boolean
      */
     private function isBinary($input)
     {
-        if (is_resource($input)) {
-            return false;
-        }
-
-        return ( ! ctype_print($input));
+        $mime = finfo_buffer(finfo_open(FILEINFO_MIME_TYPE), (string) $input);
+        return substr($mime, 0, 4) != 'text';
     }
 
     /**
@@ -1868,6 +1868,9 @@ class Image
     private function cloneResource($resource)
     {
         $clone = imagecreatetruecolor($this->width, $this->height);
+        imagealphablending($clone, false);
+        imagesavealpha($clone, true);
+        
         imagecopy($clone, $resource, 0, 0, 0, 0, $this->width, $this->height);
 
         return $clone;

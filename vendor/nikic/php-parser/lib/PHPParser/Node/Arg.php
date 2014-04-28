@@ -1,30 +1,23 @@
 <?php
 
-namespace PhpParser\Node;
-
-use PhpParser\NodeAbstract;
-
 /**
- * @property Expr $value  Value to pass
- * @property bool $byRef  Whether to pass by ref
- * @property bool $unpack Whether to unpack the argument
+ * @property PHPParser_Node_Expr $value Value to pass
+ * @property bool                $byRef Whether to pass by ref
  */
-class Arg extends NodeAbstract
+class PHPParser_Node_Arg extends PHPParser_NodeAbstract
 {
     /**
      * Constructs a function call argument node.
      *
-     * @param Expr  $value      Value to pass
-     * @param bool  $byRef      Whether to pass by ref
-     * @param bool  $unpack     Whether to unpack the argument
-     * @param array $attributes Additional attributes
+     * @param PHPParser_Node_Expr $value      Value to pass
+     * @param bool                $byRef      Whether to pass by ref
+     * @param array               $attributes Additional attributes
      */
-    public function __construct(Expr $value, $byRef = false, $unpack = false, array $attributes = array()) {
+    public function __construct(PHPParser_Node_Expr $value, $byRef = false, array $attributes = array()) {
         parent::__construct(
             array(
-                'value'  => $value,
-                'byRef'  => $byRef,
-                'unpack' => $unpack,
+                'value' => $value,
+                'byRef' => $byRef
             ),
             $attributes
         );

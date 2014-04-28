@@ -11,6 +11,7 @@
 |
 */
 
+//public
 Route::get('/', 'HomeController@index');
 
 // Authentication
@@ -22,20 +23,14 @@ Route::get('logout', 'AuthController@getLogout');
 Route::group(array('before' => 'auth'), function()
 {
     Route::get('admin', 'HomeController@showAdmin');
-
     Route::get('cmos/response','CmosController@response');
-
     Route::resource('/cmos', 'CmosController');
-
     Route::resource('islands', 'IslandsController');
-
     Route::resource('provinces', 'ProvincesController');
-
     Route::resource('users', 'UsersController');
-
     Route::resource('roles', 'RolesController');
-
     Route::resource('posts', 'PostsController');
+
 });
 
 
