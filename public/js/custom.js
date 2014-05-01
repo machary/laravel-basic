@@ -10,9 +10,7 @@ $(function() {
         $(this).hide();
     });
 
-
-
-
+    $(".rslides").responsiveSlides();
 
 
 });

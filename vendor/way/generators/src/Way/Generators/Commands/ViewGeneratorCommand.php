@@ -1,10 +1,11 @@
 <?php namespace Way\Generators\Commands;
 
-use Illuminate\Support\Facades\File;
+use Way\Generators\Generators\ViewGenerator;
+use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ViewGeneratorCommand extends GeneratorCommand {
+class ViewGeneratorCommand extends BaseGeneratorCommand {
 
     /**
      * The console command name.
@@ -18,57 +19,25 @@ class ViewGeneratorCommand extends GeneratorCommand {
      *
      * @var string
      */
-    protected $description = 'Generate a view';
+    protected $description = 'Generate a new view.';
 
     /**
-     * Create directory tree for views,
-     * and fire generator
-     */
-    public function fire()
-    {
-        $directoryPath = dirname($this->getFileGenerationPath());
-
-        if ( ! File::exists($directoryPath))
-        {
-            File::makeDirectory($directoryPath, 0777, true);
-        }
-
-        parent::fire();
-    }
-
-    /**
-     * The path where the file will be created
+     * Model generator instance.
      *
-     * @return mixed
+     * @var Way\Generators\Generators\ViewGenerator
      */
-    protected function getFileGenerationPath()
-    {
-        $path = $this->getPathByOptionOrConfig('path', 'view_target_path');
-        $viewName = str_replace('.', '/', $this->argument('viewName'));
-
-        return sprintf('%s/%s.blade.php', $path, $viewName);
-    }
+    protected $generator;
 
     /**
-     * Fetch the template data
+     * Create a new command instance.
      *
-     * @return array
+     * @return void
      */
-    protected function getTemplateData()
+    public function __construct(ViewGenerator $generator)
     {
-        return [
-            'PATH' => $this->getFileGenerationPath()
-        ];
-    }
+        parent::__construct();
 
-    /**
-     * Get path to the template for the generator
-     *
-     * @return mixed
-     */
-    protected function getTemplatePath()
-    {
-        return $this->getPathByOptionOrConfig('templatePath', 'view_template_path');
+        $this->generator = $generator;
     }
 
     /**
@@ -78,9 +47,22 @@ class ViewGeneratorCommand extends GeneratorCommand {
      */
     protected function getArguments()
     {
-        return [
-            ['viewName', InputArgument::REQUIRED, 'The name of the desired view']
-        ];
+        return array(
+            array('name', InputArgument::REQUIRED, 'Name of the view to generate.'),
+        );
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return array(
+           array('path', null, InputOption::VALUE_OPTIONAL, 'Path to views directory.', app_path() . '/views'),
+           array('template', null, InputOption::VALUE_OPTIONAL, 'Path to template.', __DIR__.'/../Generators/templates/view.txt'),
+        );
     }
 
 }

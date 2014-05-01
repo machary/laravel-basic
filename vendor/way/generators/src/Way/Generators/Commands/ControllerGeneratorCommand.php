@@ -1,9 +1,11 @@
 <?php namespace Way\Generators\Commands;
 
+use Way\Generators\Generators\ControllerGenerator;
+use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ControllerGeneratorCommand extends GeneratorCommand {
+class ControllerGeneratorCommand extends BaseGeneratorCommand {
 
     /**
      * The console command name.
@@ -17,50 +19,35 @@ class ControllerGeneratorCommand extends GeneratorCommand {
      *
      * @var string
      */
-    protected $description = 'Generate a controller';
+    protected $description = 'Generate a new controller.';
 
     /**
-     * The path where the file will be created
+     * Model generator instance.
      *
-     * @return mixed
+     * @var Way\Generators\Generators\ControllerGenerator
      */
-    protected function getFileGenerationPath()
-    {
-        $path = $this->getPathByOptionOrConfig('path', 'controller_target_path');
+    protected $generator;
 
-        return $path. '/' . $this->argument('controllerName') . '.php';
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct(ControllerGenerator $generator)
+    {
+        parent::__construct();
+
+        $this->generator = $generator;
     }
 
     /**
-     * Fetch the template data
+     * Get the path to the file that should be generated.
      *
-     * @return array
+     * @return string
      */
-    protected function getTemplateData()
+    protected function getPath()
     {
-        // LessonsController
-        $name = ucwords($this->argument('controllerName'));
-
-        // lessons
-        $collection = strtolower(str_replace('Controller', '', $name));
-
-        // lesson
-        $resource = str_singular($collection);
-
-        // Lesson
-        $model = ucwords($resource);
-
-        return compact('name', 'collection', 'resource', 'model');
-    }
-
-    /**
-     * Get path to the template for the generator
-     *
-     * @return mixed
-     */
-    protected function getTemplatePath()
-    {
-        return $this->getPathByOptionOrConfig('templatePath', 'controller_template_path');
+       return $this->option('path') . '/' . ucwords($this->argument('name')) . '.php';
     }
 
     /**
@@ -70,9 +57,22 @@ class ControllerGeneratorCommand extends GeneratorCommand {
      */
     protected function getArguments()
     {
-        return [
-            ['controllerName', InputArgument::REQUIRED, 'The name of the desired controller.']
-        ];
+        return array(
+            array('name', InputArgument::REQUIRED, 'Name of the controller to generate.'),
+        );
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return array(
+           array('path', null, InputOption::VALUE_OPTIONAL, 'Path to controllers directory.', app_path() . '/controllers'),
+           array('template', null, InputOption::VALUE_OPTIONAL, 'Path to template.', __DIR__.'/../Generators/templates/controller.txt'),
+        );
     }
 
 }

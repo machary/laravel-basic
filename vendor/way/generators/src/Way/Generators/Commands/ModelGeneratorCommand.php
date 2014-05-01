@@ -1,68 +1,78 @@
 <?php namespace Way\Generators\Commands;
 
+use Way\Generators\Generators\ModelGenerator;
+use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ModelGeneratorCommand extends GeneratorCommand {
+class ModelGeneratorCommand extends BaseGeneratorCommand {
 
-    /**
-     * The console command name.
-     *
-     * @var string
-     */
-    protected $name = 'generate:model';
+	/**
+	 * The console command name.
+	 *
+	 * @var string
+	 */
+	protected $name = 'generate:model';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Generate a model';
+	/**
+	 * The console command description.
+	 *
+	 * @var string
+	 */
+	protected $description = 'Generate a new model.';
 
-    /**
-     * The path where the file will be created
-     *
-     * @return mixed
-     */
-    protected function getFileGenerationPath()
-    {
-        $path = $this->getPathByOptionOrConfig('path', 'model_target_path');
+	/**
+	 * Model generator instance.
+	 *
+	 * @var Way\Generators\Generators\ModelGenerator
+	 */
+	protected $generator;
 
-        return $path. '/' . ucwords($this->argument('modelName')) . '.php';
-    }
+	/**
+	 * Create a new command instance.
+	 *
+	 * @return void
+	 */
+	public function __construct(ModelGenerator $generator)
+	{
+		parent::__construct();
 
-    /**
-     * Fetch the template data
-     *
-     * @return array
-     */
-    protected function getTemplateData()
-    {
-        return [
-            'NAME' => ucwords($this->argument('modelName'))
-        ];
-    }
+		$this->generator = $generator;
+	}
 
-    /**
-     * Get path to the template for the generator
-     *
-     * @return mixed
-     */
-    protected function getTemplatePath()
-    {
-        return $this->getPathByOptionOrConfig('templatePath', 'model_template_path');
-    }
+	/**
+	 * Get the path to the file that should be generated.
+	 *
+	 * @return string
+	 */
+	protected function getPath()
+    	{
+		return $this->option('path') . '/' . ucwords($this->argument('name')) . '.php';
+	}
 
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['modelName', InputArgument::REQUIRED, 'The name of the desired Eloquent model']
-        ];
-    }
+	/**
+	 * Get the console command arguments.
+	 *
+	 * @return array
+	 */
+	protected function getArguments()
+	{
+		return array(
+			array('name', InputArgument::REQUIRED, 'Name of the model to generate.'),
+		);
+	}
+
+	/**
+	 * Get the console command options.
+	 *
+	 * @return array
+	 */
+	protected function getOptions()
+	{
+		return array(
+			array('path', null, InputOption::VALUE_OPTIONAL, 'Path to the models directory.', app_path() . '/models'),
+			array('template', null, InputOption::VALUE_OPTIONAL, 'Path to template.', __DIR__.'/../Generators/templates/model.txt')
+		);
+	}
 
 }

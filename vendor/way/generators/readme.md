@@ -1,33 +1,33 @@
-# Fast Workflow in Laravel With Custom Generators
-
-[![Build Status](https://travis-ci.org/JeffreyWay/Laravel-4-Generators.png?branch=master)](https://travis-ci.org/JeffreyWay/Laravel-4-Generators)
-
 This Laravel 4 package provides a variety of generators to speed up your development process. These generators include:
 
 - `generate:model`
-- `generate:view`
 - `generate:controller`
 - `generate:seed`
+- `generate:view`
 - `generate:migration`
-- `generate:pivot`
 - `generate:resource`
 - `generate:scaffold`
+- `generate:form`
+- `generate:test`
+- `generate:pivot` <-- NEW!!
+
+## Prefer a Video Walk-through?
+
+[See here.](http://tutsplus.s3.amazonaws.com/tutspremium/courses_$folder$/WhatsNewInLaravel4/9-Generators.mp4)
 
 ## Installation
 
-> [Want a 5-minute video overview?](https://dl.dropboxusercontent.com/u/774859/Work/Laravel-4-Generators/Get-Started-With-Laravel-Custom-Generators.mp4)
-
 Begin by installing this package through Composer. Edit your project's `composer.json` file to require `way/generators`.
 
-	"require-dev": {
-		"way/generators": "2.*"
-	}
-
-> Please note that version 2 of this package removed support for a couple of generators, such as `generate:form`. If you'd like to continue using them, stick with version `1.1`.
+	"require": {
+		"laravel/framework": "4.0.*",
+		"way/generators": "dev-master"
+	},
+	"minimum-stability" : "dev"
 
 Next, update Composer from the Terminal:
 
-    composer update --dev
+    composer update
 
 Once this operation completes, the final step is to add the service provider. Open `app/config/app.php`, and add a new item to the providers array.
 
@@ -37,6 +37,8 @@ That's it! You're all set to go. Run the `artisan` command from the Terminal to 
 
     php artisan
 
+> There's also a [Sublime Text plugin available](http://net.tutsplus.com/tutorials/tools-and-tips/pro-workflow-in-laravel-and-sublime-text/) to assist with the generators. Definitely use it, but not before you learn the syntax below.
+
 ## Usage
 
 Think of generators as an easy way to speed up your workflow. Rather than opening the models directory, creating a new file, saving it, and adding the class, you can simply run a single generate command.
@@ -45,10 +47,11 @@ Think of generators as an easy way to speed up your workflow. Rather than openin
 - [Models](#models)
 - [Views](#views)
 - [Seeds](#seeds)
-- [Pivot](#pivot)
 - [Resources](#resources)
 - [Scaffolding](#scaffolding)
-- [Configuration](#configuration)
+- [Forms](#forms)
+- [Tests](#tests)
+- [Pivot Tables](#pivot-tables)
 
 ### Migrations
 
@@ -62,21 +65,22 @@ If we don't specify the `fields` option, the following file will be created with
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 
 class CreatePostsTable extends Migration {
 
-	/**
+    /**
 	 * Run the migrations.
 	 *
 	 * @return void
 	 */
 	public function up()
 	{
-        Schema::create('posts', function(Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-        });
+	  Schema::create('posts', function($table)
+	  {
+	    $table->increments('id');
+
+	    $table->timestamps();
+	  });
 	}
 
 	/**
@@ -86,14 +90,13 @@ class CreatePostsTable extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::drop('posts');
+	  Schema::drop('posts');
 	}
 
 }
-
 ```
 
-Notice that the generator is smart enough to detect that you're trying to create a table. When naming your migrations, make them as descriptive as possible. The migration generator will detect the first word in your migration name and do its best to determine how to proceed. As such, for `create_posts_table`, the keyword is "create," which means that we should prepare the necessary schema to create a table.
+Notice that the generator is smart enough to detect that you're trying to create a table. When naming your migrations, make them as description as possible. The migration generator will detect the first word in your migration name and do its best to determine how to proceed. As such, for `create_posts_table`, the keyword is "create," which means that we should prepare the necessary schema to create a table.
 
 If you instead use a migration name along the lines of `add_user_id_to_posts_table`, in that case, the keyword is "add," signaling that we intend to add rows to an existing table. Let's see what that generates.
 
@@ -105,22 +108,21 @@ This will prepare the following boilerplate:
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 
 class AddUserIdToPostsTable extends Migration {
 
-	/**
+    /**
 	 * Run the migrations.
 	 *
 	 * @return void
 	 */
 	public function up()
 	{
-        Schema::table('posts', function(Blueprint $table) {
+	  Schema::table('posts', function($table)
+	  {
 
-        });
+	  });
 	}
-
 
 	/**
 	 * Reverse the migrations.
@@ -129,9 +131,10 @@ class AddUserIdToPostsTable extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::table('posts', function(Blueprint $table) {
+	  Schema::table('posts', function($table)
+	  {
 
-        });
+	  });
 	}
 
 }
@@ -145,8 +148,7 @@ When writing migration names, use the following keywords to provide hints for th
 
 - `create` or `make` (`create_users_table`)
 - `add` or `insert` (`add_user_id_to_posts_table`)
-- `remove` (`remove_user_id_from_posts_table`)
-- `delete` or `drop` (`delete_users_table`)
+- `remove` or `drop` or `delete` (`remove_user_id_from_posts_table`)
 
 #### Generating Schema
 
@@ -160,23 +162,23 @@ Before we decipher this new option, let's see the output:
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 
 class CreatePostsTable extends Migration {
 
-	/**
+    /**
 	 * Run the migrations.
 	 *
 	 * @return void
 	 */
 	public function up()
 	{
-        Schema::create('posts', function(Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-			$table->text('body');
-			$table->timestamps();
-        });
+	  Schema::create('posts', function($table)
+	  {
+	    $table->increments('id');
+	    $table->string('title');
+	    $table->text('body');
+	    $table->timestamps();
+	  });
 	}
 
 	/**
@@ -186,7 +188,7 @@ class CreatePostsTable extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::drop('posts');
+	  Schema::drop('posts');
 	}
 
 }
@@ -195,22 +197,27 @@ class CreatePostsTable extends Migration {
 Nice! A few things to notice here:
 
 - The generator will automatically set the `id` as the primary key.
+- It also will add the timestamps, as that's more common than not.
 - It parsed the `fields` options, and added those fields.
 - The drop method is smart enough to realize that, in reverse, the table should be dropped entirely.
 
-To declare fields, use a comma+space-separated list of key:value:option sets, where `key` is the name of the field, `value` is the [column type](http://four.laravel.com/docs/schema#adding-columns), and `option` is a way to specify indexes and such, like `unique` or `nullable`. Here are some examples:
+To declare fields, use a comma-separated list of key:value:option sets, where `key` is the name of the field, `value` is the [column type](http://four.laravel.com/docs/schema#adding-columns), and `option` is a way to specify indexes and such, like `unique` or `nullable`. Here are some examples:
 
 - `--fields="first:string, last:string"`
 - `--fields="age:integer, yob:date"`
 - `--fields="username:string:unique, age:integer:nullable"`
-- `--fields="name:string:default('John Doe'), bio:text:nullable"`
-- `--fields="username:string(30):unique, age:integer:nullable:default(18)"`
+- `--fields="name:string:default('John'), email:string:unique:nullable"`
+- `--fields="username:string[30]:unique, age:integer:nullable"`
 
-Please make note of the last example, where we specify a character limit: `string(30)`. This will produce `$table->string('username', 30)->unique();`
+Please make note of the last example, where we specify a character limit: `string[30]`. This will produce `$table->string('username', 30)->unique();`
 
 It is possible to destroy the table by issuing:
 
-	php artisan generate:migration delete_posts_table
+	php artisan generate:migration destroy_posts_table
+	
+If you'd like to have an accurate artisan rollback option set the `fields` option as well:
+
+	php artisan generate:migration destroy_posts_table --fields="title:string, body:text"
 
 As a final demonstration, let's run a migration to remove the `completed` field from a `tasks` table.
 
@@ -222,22 +229,21 @@ This time, as we're using the "remove" keyword, the generator understands that i
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 
 class RemoveCompletedFromTasksTable extends Migration {
 
-	/**
+    /**
 	 * Run the migrations.
 	 *
 	 * @return void
 	 */
 	public function up()
 	{
-        Schema::table('tasks', function(Blueprint $table) {
-            $table->dropColumn('completed');
-        });
+	  Schema::table('tasks', function($table)
+	  {
+	    $table->dropColumn('completed');
+	  });
 	}
-
 
 	/**
 	 * Reverse the migrations.
@@ -246,9 +252,10 @@ class RemoveCompletedFromTasksTable extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::table('tasks', function(Blueprint $table) {
-            $table->boolean('completed');
-        });
+	  Schema::table('tasks', function($table)
+	  {
+	    $table->boolean('completed');
+	  });
 	}
 
 }
@@ -263,330 +270,292 @@ This will create the file, `app/models/Post.php` and insert the following boiler
 ```php
 <?php
 
-class Post extends \Eloquent {
+class Post extends Eloquent {
 
 }
 ```
 
 ### Views
 
-The view generator is fairly simple.
+    php artisan generate:view dog
 
-```bash
-php artisan generate:view admin.reports.index
-```
+This command will generate `app/views/dog.blade.php` and a simple string, for convenience.
 
-This command will create an empty view, `/app/views/admin/reports/index.blade.php`. If the provided directory tree does not exist, it will be created for you.
+    The dog.blade.php view.
+
+As with all of the commands, you may specify a `--path` option to place this file elsewhere.
+
+    php artisan generate:view index --path=views/dogs
+
+Now, we get: `app/views/dogs/index.blade.php`.
 
 ### Seeds
 
 Laravel 4 provides us with a flexible way to seed new tables.
 
-    php artisan generate:seed users
+    php artisan generate:seed dogs
 
-Set the argument to the name of the table that you'd like a seed file for. This will generate `app/database/seeds/UsersTableSeeder.php` and populate it with:
+Set the argument to the name of the table that you'd like a seed file for. This will generate `app/database/seeds/DogsTableSeeder.php` and populate it with:
 
 ```php
 <?php
 
-// Composer: "fzaninotto/faker": "v1.3.0"
-use Faker\Factory as Faker;
+class DogsTableSeeder extends Seeder {
 
-class UsersTableSeeder extends Seeder {
+  public function run()
+  {
+    $dogs = [
 
-    public function run()
+    ];
+
+    DB::table('Dogs')->insert($dogs);
+  }
+
+}
+```
+
+This command will also update `app/database/seeds/DatabaseSeeder.php` to include a call to this new seed class, as required by Laravel.
+
+To fully seed the `dogs` table:
+
+- Within the `$dogs` array, add any number of arrays, containing the necessary rows.
+- Return to the Terminal and run Laravel's `db:seed command` (`php artisan db:seed`).
+
+### Resources
+
+Think of the resource generator as the big enchilada. It calls all of its sibling generate commands. Assuming the following command:
+
+    php artisan generate:resource dog --fields="name:string"
+
+The following actions will take place:
+
+- Creates a `create_dogs_table` migration, with a name column.
+- Creates a `Dog.php` model.
+- Creates a `views/dogs` folder, containing the `index`, `show`, `create`, and `edit` views.
+- Creates a `database/seeds/DogsTableSeeder.php` seed file.
+- Updates `DatabaseSeeder.php` to run `DogsTableSeeder`
+- Creates `controllers/DogsController.php`, and fills it with restful methods.
+- Updates `routes.php` to include: `Route::resource('dogs', 'DogsController')`.
+- Creates a `tests/controllers/DogsControllerTest.php` file, and fills it with some boilerplate tests to get you started.
+
+> Please note that the resource name is singular - the same as how you would name your model.
+
+#### Workflow
+
+Let's create a resource for displaying dogs in a restful way.
+
+    php artisan generate:resource dog --fields="name:string, age:integer"
+
+Next, we'll seed this new `dogs` table. Open `database/seeds/DogsTableSeeder.php` and add a couple of rows. Remember, you only need to edit the `$dogs` array within this file.
+
+    $dogs = [
+        ['name' => 'Sparky', 'age' => 5],
+        ['name' => 'Joe', 'age' => 11]
+    ];
+
+Now, we migrate the database and seed the `dogs` table.
+
+    php artisan migrate
+    php artisan db:seed
+
+Finally, let's display these two dogs, when accessing the `dogs/` route. Edit `controllers/DogsController.php`, and update the `index` method, like so:
+
+    public function index()
     {
-        $faker = Faker::create();
+        return View::make('dogs.index')
+    		->with('dogs', Dog::all());
+    }
 
-        foreach(range(1, 10) as $index)
-        {
-            User::create([
+The last step is to update the view to display each of the posts that was passed to it. Open `views/dogs/index.blade.php` and add:
 
-            ]);
-        }
+    <ul>
+        @foreach($dogs as $dog)
+    		<li>{{ $dog->name }} : {{ $dog->age }}</li>
+    	@endforeach
+    </ul>
+
+Okay, okay, we're not using a layout file with the proper HTML. Who cares; this is just an example, fool.
+
+Anyhow, we're all set. Run the server, and browse to `localhost:8000/dogs` to view your list.
+
+    php artisan serve
+
+- Sparky : 5
+- Joe : 11
+
+Isn't that way faster than manually doing all of that writing? To finish up, let's run the tests to make sure that everything is working, as expected.
+
+    phpunit
+
+And...it's green!
+
+### Scaffolding
+
+![scaffolding](https://dl.dropboxusercontent.com/u/774859/GitHub-Repos/scaffold-example.png)
+
+Think of scaffolding as an extension of a resource. It has the exact same interface.
+
+```bash
+php artisan generate:scaffold tweet --fields="author:string, body:text"
+```
+
+The only difference is that it will handle all of the boilerplate. This can be particularly useful for prototyping - or even learning how to do basic things, such as delete a record from a database table, or build a form, or perform validation on that form.
+
+![view scaffold](https://dl.dropboxusercontent.com/u/774859/GitHub-Repos/scaffold-view.png)
+
+![view validation](https://dl.dropboxusercontent.com/u/774859/GitHub-Repos/scaffold-validation.png)
+
+### Forms
+This handy new generator allows you to, with a single command, generate the necessary HTML for a form, based on attributes from a provided model. Perhaps an example is in order:
+
+```bash
+php artisan generate:form tweet
+```
+Assuming that I do have a `Tweet` model and its associated `tweet` table, this command will output:
+
+```html
+{{ Form::open(array('route' => 'tweets.store')) }}
+    <ul>
+        <li>
+            {{ Form::label('author', 'Author:') }}
+            {{ Form::text('author') }}
+        </li>
+
+        <li>
+            {{ Form::label('body', 'Body:') }}
+            {{ Form::textarea('body') }}
+        </li>
+
+        <li>
+            {{ Form::submit() }}
+        </li>
+    </ul>
+{{ Form::close() }}
+```
+Pretty neat, huh? It read the attributes and data types, and prepared the markup for you! One less thing to worry about!
+
+#### Specifying the Form's Method
+But what if you intend to update a resource, rather than create a new one? Well, in that case, use the `--method` option.
+
+```bash
+php artisan generate:form tweet --method="update"
+```
+
+This will mostly generate the same HTML, however, the `Form::open()` method will be adjusted, as needed:
+
+```php
+{{ Form::open(array('method' => 'PATCH', 'route' => 'tweets.update')) }}
+```
+
+The method option will accept any number of values (*add, edit, update, post, create, etc.*), but, essentially, you're just telling it whether you are creating or editing a resource. As such, there's only two possible outputs: `POST` and `PATCH` (the former being the default).
+
+#### Custom HTML
+
+What if you don't like the idea of using an unordered list for a form? Use the `--html` option, along with the name of the element that you'd prefer to use:
+
+```bash
+php artisan generate:form tweet --html="div"
+```
+Now, the generator we'll present the elements within `div`s!
+
+```html
+{{ Form::open(array('route' => 'tweets.store')) }}
+    <div>
+        {{ Form::label('author', 'Author:') }}
+        {{ Form::text('author') }}
+    </div>
+
+    <div>
+        {{ Form::label('body', 'Body:') }}
+        {{ Form::textarea('body') }}
+    </div>
+
+    <div>
+        {{ Form::submit() }}
+    </div>
+{{ Form::close() }}
+```
+
+#### Copying and Saving
+
+At least for now, and unlike the other generators in this package, this command will output the form, at which point you can copy and paste it where needed. Of course, you can always pipe the output to the clipboard or save to a file, using existing tools. For instance:
+
+```bash
+# copy the output to the clipboard
+php artisan generate:form tweet | pbcopy
+
+# save it to a form partial
+php artisan generate:form tweet > app/views/posts/form.blade.php
+```
+### Tests
+
+Use `generate:test` when you need to create a new PHPUnit test class. Here's an example:
+
+```bash
+php artisan generate:test FooTest
+```
+
+This will produce `app/tests/FooTest.php`.
+
+```php
+<?php
+
+class FooTest extends TestCase {
+
+    public function test()
+    {
+
     }
 
 }
 ```
 
-This will give you a basic bit of boilerplate, using the popular Faker library. This is a nice way to seed your DB tables. Don't forget to pull in Faker through Composer!
+### Pivot Tables
 
-### Pivot
+Creating joinable/pivot tables can sometimes be confusing.
 
-When you require a new pivot table, the `generate:pivot` table expedites the process of creating the appropriate migration.
+- Should the table names be plural?
+- In what order do we write the table names to make Laravel happy?
+- What fields should be in the pivot table?
 
-Simply pass the name of the two tables that require a joining pivot table. For `orders` and `users`, you might do:
+This process can be automated now. Simply call the `generate:pivot`
+command, and provide the names of the tables that should be joinable.
+For example, a post can have many tags, and a tag can have many posts.
+Run the following command to create the necessary pivot table.
 
 ```bash
-php artisan generate:pivot orders users
+php artisan generate:pivot posts tags
 ```
 
-This will create the following migration:
+It doesn't matter which order you provide the table names (or whether
+you pluralize them or not). The command will correctly create a
+`post_tag` migration that has `post_id` and `tag_id` fields.
 
 ```php
-<?php
-
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-
-class CreateOrderUserTable extends Migration {
-
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-        Schema::create('order_user', function(Blueprint $table) {
-            $table->increments('id');
-			$table->integer('order_id')->unsigned()->index();
-			$table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-			$table->integer('user_id')->unsigned()->index();
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-			$table->timestamps();
-        });
-	}
-
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-	    Schema::drop('order_user');
-	}
-
-}
+Schema::create('post_tag', function(Blueprint $table) {
+    $table->integer('post_id');
+    $table->integer('tag_id');
+});
 ```
 
-Notice that it correctly sets the table name according to your two provided tables, in alphabetical order. Now, run `php artisan migrate` to create your pivot table!
 
-### Resources
-
-The `generate:resource` command will do a number of things for you:
-
-- Generate a model
-- Generate index, show, create, and edit views
-- Generate a controller
-- Generate a migration with schema
-- Generate a table seeder
-- Migrate the database
-
-When triggering this command, you'll be asked to confirm each of these actions. That way, you can tailor the generation to what you specifically require.
-
-#### Example
-
-Imagine that you need to build a way to display posts. While you could manually create a controller, create a model, create a migration and populate it with the schema, and then create a table seeder...why not let the generator do that?
+Finally, simply migrate the database to create it.
 
 ```bash
-php artisan generate:resource post --fields="title:string, body:text"
+php artisan migrate
 ```
 
-If you say yes to each confirmation, this single command will give you boilerplate for:
+Pivot table finished!
 
-- app/models/Post.php
-- app/controllers/PostsController.php
-- app/database/migrations/timestamp-create_posts_table.php (including the schema)
-- app/database/seeds/PostsTableSeeder.php
-
-### Scaffolding
-
-The scaffolding generator is similar to `generate:resource`, except it will add some beginning boilerplate to these files, as a convenience.
-
-For instance, when running `generate:scaffold post`, your controller boilerplate will be:
-
-```php
-<?php
-
-class PostsController extends \BaseController {
-
-	/**
-	 * Display a listing of posts
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-	    $posts = Post::all();
-
-	    return View::make('posts.index', compact('posts'));
-	}
-
-	/**
-	 * Show the form for creating a new post
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-        return View::make('posts.create');
-	}
-
-	/**
-	 * Store a newly created post in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-	    $validator = Validator::make($data = Input::all(), Post::$rules);
-
-	    if ($validator->fails())
-	    {
-	        return Redirect::back()->withErrors($validator)->withInput();
-	    }
-
-	    Post::create($data);
-
-	    return Redirect::route('posts.index');
-	}
-
-	/**
-	 * Display the specified post.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-	    $post = Post::findOrFail($id);
-
-	    return View::make('posts.show', compact('post'));
-	}
-
-	/**
-	 * Show the form for editing the specified post.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$post = Post::find($id);
-
-		return View::make('posts.edit', compact('post'));
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$post = Post::findOrFail($id);
-
-		$validator = Validator::make($data = Input::all(), Post::$rules);
-
-        if ($validator->fails())
-        {
-            return Redirect::back()->withErrors($validator)->withInput();
-        }
-
-		$post->update($data);
-
-		return Redirect::route('posts.index');
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		Post::destroy($id);
-
-		return Redirect::route('posts.index');
-	}
-
-}
-```
-
-Please note that you're encouraged to modify this generated controller. It simply provides a starting point.
-
-### Configuration
-
-You may want to modify your templates - how the generated files are formatted. To allow for this, you
-need to publish the templates that, behind the scenes, the generators will reference.
+To put it all together, let's do it from scratch. We need a posts table,
+a tags table, and the connecting pivot table for the two. We can tackle
+this easily with the generators.
 
 ```bash
-php artisan generate:publish-templates
+php artisan generate:migration create_posts_table --fields="title:string, description:text"
+
+php artisan generate:migration create_tags_table --fields="name:string"
+
+php artisan generate:pivot posts tags
 ```
 
-This will copy all templates to your `app/templates` directory. You can modify these however you wish to fit your desired formatting. If you'd prefer a different directory:
-
-```bash
-php artisan generate:publish-templates --path=app/foo/bar/templates
-```
-
-When you run the `generate:publish-templates` command, it will also publish
-the configuration to `app/config/packages/way/generators/config/config.php`. This file will look somewhat like:
-
-```php
-<?php
-
-return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Where the templates for the generators are stored...
-    |--------------------------------------------------------------------------
-    |
-    */
-    'model_template_path' => '/Users/jeffreyway/Desktop/generators-testing/app/templates/model.txt',
-
-    'scaffold_model_template_path' => '/Users/jeffreyway/Desktop/generators-testing/app/templates/scaffolding/model.txt',
-
-    'controller_template_path' => '/Users/jeffreyway/Desktop/generators-testing/app/templates/controller.txt',
-
-    'scaffold_controller_template_path' => '/Users/jeffreyway/Desktop/generators-testing/app/templates/scaffolding/controller.txt',
-
-    'migration_template_path' => '/Users/jeffreyway/Desktop/generators-testing/app/templates/migration.txt',
-
-    'seed_template_path' => '/Users/jeffreyway/Desktop/generators-testing/app/templates/seed.txt',
-
-    'view_template_path' => '/Users/jeffreyway/Desktop/generators-testing/app/templates/view.txt',
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Where the generated files will be saved...
-    |--------------------------------------------------------------------------
-    |
-    */
-    'model_target_path'   => app_path('models'),
-
-    'controller_target_path'   => app_path('controllers'),
-
-    'migration_target_path'   => app_path('database/migrations'),
-
-    'seed_target_path'   => app_path('database/seeds'),
-
-    'view_target_path'   => app_path('views')
-
-];
-```
-
-Also, while you're in this file, note that you can also update the default target directory for each generator.
-
-### Shortcuts
-
-Because you'll likely type these commands over and over, it makes sense to create aliases.
-
-```bash
-# Generator Stuff
-alias g:m="php artisan generate:model"
-alias g:c="php artisan generate:controller"
-alias g:v="php artisan generate:view"
-alias g:s="php artisan generate:seed"
-alias g:mig="php artisan generate:migration"
-alias g:r="php artisan generate:resource"
-```
-
-These can be stored in, for example, your `~/.bash_profile` or `~/.bashrc` files.

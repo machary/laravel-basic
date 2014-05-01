@@ -4,7 +4,7 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class PivotGeneratorCommand extends Command {
+class PivotGeneratorCommand extends BaseGeneratorCommand {
 
     /**
      * The console command name.
@@ -20,48 +20,33 @@ class PivotGeneratorCommand extends Command {
      */
     protected $description = 'Generate a pivot table';
 
-    /**
-     * Create a pivot table migration
-     */
     public function fire()
     {
-        list($tableOne, $tableTwo) = $this->sortDesiredTables();
+        $tables = $this->sortDesiredTables();
 
-        $this->call('generate:migration', [
-            'migrationName' => "create_{$tableOne}_{$tableTwo}_table",
-            '--fields' => $this->getMigrationFields($tableOne, $tableTwo)
-        ]);
+        $this->call(
+            'generate:migration',
+            array(
+                'name'      => "pivot_{$tables[0]}_{$tables[1]}_table",
+                '--fields'  => implode(', ', array(
+                    "{$tables[0]}_id:integer:unsigned:index",
+                    "{$tables[1]}_id:integer:unsigned:index",
+                    "{$tables[0]}_id:foreign:references('id'):on('" . str_plural($tables[0]) . "'):onDelete('cascade')",
+                    "{$tables[1]}_id:foreign:references('id'):on('" . str_plural($tables[1]) . "'):onDelete('cascade')"
+                ))
+            )
+        );
     }
 
-    /**
-     * Sort the provided pivot tables in alphabetical order
-     *
-     * @return array
-     */
     public function sortDesiredTables()
     {
-        $tables = array_except(array_map('str_singular', $this->argument()), 'command');
+        $tableOne = str_singular($this->argument('tableOne'));
+        $tableTwo = str_singular($this->argument('tableTwo'));
 
+        $tables = array($tableOne, $tableTwo);
         sort($tables);
 
         return $tables;
-    }
-
-    /**
-     * Get the fields for the pivot migration
-     *
-     * @param $tableOne
-     * @param $tableTwo
-     * @return array
-     */
-    public function getMigrationFields($tableOne, $tableTwo)
-    {
-        return implode(', ', [
-            "{$tableOne}_id:integer:unsigned:index",
-            "{$tableOne}_id:foreign:references('id'):on('" . str_plural($tableOne) . "'):onDelete('cascade')",
-            "{$tableTwo}_id:integer:unsigned:index",
-            "{$tableTwo}_id:foreign:references('id'):on('" . str_plural($tableTwo) . "'):onDelete('cascade')",
-        ]);
     }
 
     /**
@@ -71,10 +56,11 @@ class PivotGeneratorCommand extends Command {
      */
     protected function getArguments()
     {
-        return [
-            ['tableOne', InputArgument::REQUIRED, 'Name of the first table'],
-            ['tableTwo', InputArgument::REQUIRED, 'Name of the second table']
-        ];
+        return array(
+            array('tableOne', InputArgument::REQUIRED, 'Name of the first table.'),
+            array('tableTwo', InputArgument::REQUIRED, 'Name of the second table.')
+        );
     }
 
 }
+

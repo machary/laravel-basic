@@ -1,9 +1,13 @@
 <?php namespace Way\Generators\Commands;
 
+use Way\Generators\Generators\ResourceGenerator;
+use Way\Generators\Cache;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Config;
+use Illuminate\Support\Pluralizer;
+
+class MissingTableFieldsException extends \Exception {}
 
 class ScaffoldGeneratorCommand extends ResourceGeneratorCommand {
 
@@ -19,42 +23,47 @@ class ScaffoldGeneratorCommand extends ResourceGeneratorCommand {
      *
      * @var string
      */
-    protected $description = 'Scaffold a new resource (with boilerplate)';
+    protected $description = 'Generate scaffolding for a resource.';
 
     /**
-     * Call model generator if user confirms
+     * Get the path to the template for a model.
      *
-     * @param $resource
+     * @return string
      */
-    protected function callModel($resource)
+    protected function getModelTemplatePath()
     {
-        $modelName = $this->getModelName($resource);
-
-        if ($this->confirm("Do you want me to create a $modelName model? [yes|no]"))
-        {
-            $this->call('generate:model', [
-                'modelName' => $modelName,
-                '--templatePath' => Config::get("generators::config.scaffold_model_template_path")
-            ]);
-        }
+        return __DIR__.'/../Generators/templates/scaffold/model.txt';
     }
 
     /**
-     * Call controller generator if user confirms
+     * Get the path to the template for a controller.
      *
-     * @param $resource
+     * @return string
      */
-    protected function callController($resource)
+    protected function getControllerTemplatePath()
     {
-        $controllerName = $this->getControllerName($resource);
+        return __DIR__.'/../Generators/templates/scaffold/controller.txt';
+    }
 
-        if ($this->confirm("Do you want me to create a $controllerName controller? [yes|no]"))
-        {
-            $this->call('generate:controller', [
-                'controllerName' => $controllerName,
-                '--templatePath' => Config::get("generators::config.scaffold_controller_template_path")
-            ]);
-        }
+
+    /**
+     * Get the path to the template for a controller.
+     *
+     * @return string
+     */
+    protected function getTestTemplatePath()
+    {
+        return __DIR__.'/../Generators/templates/scaffold/controller-test.txt';
+    }
+
+    /**
+     * Get the path to the template for a view.
+     *
+     * @return string
+     */
+    protected function getViewTemplatePath($view = 'view')
+    {
+        return __DIR__."/../Generators/templates/scaffold/views/{$view}.txt";
     }
 
 }

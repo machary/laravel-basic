@@ -31,7 +31,7 @@
                     <a href="{{{ URL::to('posts') }}}">Post</a>
                 </li>
                 <li>
-                    <a href="../javascript">Menu Four</a>
+                    <a href="{{{ URL::to('slideshows') }}}">Slideshow</a>
                 </li>
                 <li>
                     <a href="../customize">Menu Five</a>

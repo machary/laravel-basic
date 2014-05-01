@@ -11,12 +11,14 @@
 <link rel="stylesheet" href="{{ URL::asset('css/bootstrap/bootstrap-theme.min.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('css/custom/form-style.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('css/custom/custom-styles.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('css/custom/responsiveslides.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('css/datatables/jquery.dataTables.css') }}">
 
 <!-- Scripts-->
 <script src="{{ URL::asset('js/jquery/jquery-2.0.0.min.js') }}"></script>
 <script src="{{ URL::asset('js/bootstrap/bootstrap.min.js') }}"></script>
 <script src="{{ URL::asset('js/custom.js') }}"></script>
+<script src="{{ URL::asset('js/responsiveslides.min.js') }}"></script>
 
 <script src="{{ URL::asset('tinymce/tinymce.min.js')}}"></script>
 <script src="{{ URL::asset('tinymce/jquery.tinymce.min.js')}}"></script>

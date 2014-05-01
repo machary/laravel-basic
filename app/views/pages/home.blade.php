@@ -3,7 +3,13 @@
 <br>
 
 @section('main')
-<h1>Welcome, This is Home content.</h1>
+<ul class="rslides">
+    @foreach($r_slide as $image)
+    <li><img src="{{ URL::to('uploads/images/'.$image->image) }}" alt=""></li>
+    @endforeach
+</ul>
+
+<br>
 
 @foreach($r_post as $val)
     <div class="post">
