@@ -5,6 +5,7 @@
 <h1>All Islands</h1>
 
 <p>{{ link_to_route('islands.create', 'Add new island') }}</p>
+<a href="{{ URL::to('islands/import') }}"> Import from Excel</a>
 
 @if ($islands->count())
 	<table class="table table-striped table-bordered">

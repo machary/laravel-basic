@@ -10,6 +10,7 @@ Web application with basic features
 6. TinyMce - http://www.tinymce.com
 7. Responsive Filemanager - http://www.responsivefilemanager.com/
 8. Responsive Slider - http://responsiveslides.com/
+9. Php Excel - https://github.com/Maatwebsite/laravel4-PHPExcel
 
 ### Features
 1. Basic Authentication
@@ -17,6 +18,7 @@ Web application with basic features
 3. Simple post with Image + thumbnail
 4. Integrated TinyMce with Responsive Filemanager Plugins (media uploader)
 5. Responsive Image Slider
+6. User can import data from .xls file
 
 ### Implemented Tutorial
 1. Jeffry Way Generator (Version 1.0) - Automatic CRUD Form Generator
@@ -28,6 +30,7 @@ Web application with basic features
 4. Intervention Image Class - http://image.intervention.io
 5. Responsive Filemanager Installation - http://www.responsivefilemanager.com/#documentation-section
 8. Responsive Slider - http://responsiveslides.com/
+9. Import from xls - https://github.com/Maatwebsite/laravel4-PHPExcel
 
 
 

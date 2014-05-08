@@ -25,6 +25,8 @@ Route::group(array('before' => 'auth'), function()
     Route::get('admin', 'HomeController@showAdmin');
     Route::get('cmos/response','CmosController@response');
     Route::resource('/cmos', 'CmosController');
+    Route::get('islands/import','IslandsController@import');
+    Route::post('islands/port','IslandsController@port');
     Route::resource('islands', 'IslandsController');
     Route::resource('provinces', 'ProvincesController');
     Route::resource('users', 'UsersController');

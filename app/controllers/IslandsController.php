@@ -22,7 +22,6 @@ class IslandsController extends BaseController {
 	public function index()
 	{
 		$islands = $this->island->all();
-
 		return View::make('islands.index', compact('islands'));
 	}
 
@@ -127,5 +126,26 @@ class IslandsController extends BaseController {
 
 		return Redirect::route('islands.index');
 	}
+
+    public function port(){
+        if(Input::hasFile('excel'))
+        {
+           $file = Input::file('excel');
+           $r_xls = Excel::load($file->getRealPath(),true)->select(array('island'))->toArray();
+           for($i=0; $i<count($r_xls); $i++)
+           {
+                $obj_island = new Island();
+                $obj_island->island = $r_xls[$i]['island'];
+                $obj_island->save();
+            }
+             return Redirect::route('islands.index');
+        }
+        return Redirect::route('islands.index');
+    }
+
+    public function import(){
+        return View::make('islands.import');
+    }
+
 
 }

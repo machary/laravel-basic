@@ -1,0 +1,28 @@
+{
+    "name": "maatwebsite/excel",
+    "description": "Laravel wrapper for PHP Excel",
+    "license": "LGPL",
+    "keywords": ["laravel", "phpexcel", "excel"],
+    "authors": [
+        {
+            "name": "Maatwebsite.nl",
+            "email": "info@maatwebsite.nl"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.x",
+        "illuminate/config": "4.x",
+        "illuminate/filesystem": "4.x",
+        "phpoffice/phpexcel": "1.8.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/Maatwebsite/Excel/Readers"
+        ],
+        "psr-0": {
+            "Maatwebsite\\Excel": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
