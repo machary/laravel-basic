@@ -1,21 +1,23 @@
-<?php
+<?php /*
 
 use Mockery as m;
-use Way\Tests\Factory;
+//use \Way\Tests\Factory;
+
 
 class CmosTest extends TestCase {
 
 	public function __construct()
 	{
-		$this->mock = m::mock('Eloquent', 'Cmo');
+
 		$this->collection = m::mock('Illuminate\Database\Eloquent\Collection')->shouldDeferMissing();
 	}
 
 	public function setUp()
 	{
 		parent::setUp();
+        $this->mock = m::mock('Eloquent', 'Cmo');
 
-		$this->attributes = Factory::cmo(['id' => 1]);
+		//$this->attributes = Factory::cmo(['id' => 1]);
 		$this->app->instance('Cmo', $this->mock);
 	}
 

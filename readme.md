@@ -11,6 +11,7 @@ Web application with basic features
 7. Responsive Filemanager - http://www.responsivefilemanager.com/
 8. Responsive Slider - http://responsiveslides.com/
 9. Php Excel - https://github.com/Maatwebsite/laravel4-PHPExcel
+10. Codeception - http://courses.tutsplus.com/courses/modern-testing-in-php-with-codeception
 
 ### Features
 1. Basic Authentication
@@ -31,6 +32,7 @@ Web application with basic features
 5. Responsive Filemanager Installation - http://www.responsivefilemanager.com/#documentation-section
 8. Responsive Slider - http://responsiveslides.com/
 9. Import from xls - https://github.com/Maatwebsite/laravel4-PHPExcel
+10. codeception testing - http://courses.tutsplus.com/courses/modern-testing-in-php-with-codeception
 
 
 

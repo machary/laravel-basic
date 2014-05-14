@@ -14,4 +14,9 @@ class ExampleTest extends TestCase {
 		$this->assertTrue($this->client->getResponse()->isOk());
 	}
 
+   /* public function test_display_home_page(){
+        $response = $this->call('GET','/');
+        var_dump($response->getContent());
+    }*/
+
 }

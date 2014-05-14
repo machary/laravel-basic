@@ -1,21 +1,20 @@
-<?php
+<?php /*
 
 use Mockery as m;
-use Way\Tests\Factory;
+//use Way\Tests\Factory;
 
 class ProvincesTest extends TestCase {
 
 	public function __construct()
 	{
-		$this->mock = m::mock('Eloquent', 'Province');
 		$this->collection = m::mock('Illuminate\Database\Eloquent\Collection')->shouldDeferMissing();
 	}
 
 	public function setUp()
 	{
 		parent::setUp();
-
-		$this->attributes = Factory::province(['id' => 1]);
+        $this->mock = m::mock('Eloquent', 'Province');
+		//$this->attributes = Factory::province(['id' => 1]);
 		$this->app->instance('Province', $this->mock);
 	}
 

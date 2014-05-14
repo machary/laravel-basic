@@ -8,7 +8,8 @@
         "way/generators"   : "1.1",
         "bllim/datatables" : "*",
         "intervention/image": "1.*",
-        "maatwebsite/excel": "dev-master"
+        "maatwebsite/excel": "dev-master",
+        "codeception/codeception":"@stable"
 	},
 	"autoload": {
 		"classmap": [

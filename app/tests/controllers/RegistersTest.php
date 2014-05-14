@@ -1,21 +1,20 @@
-<?php
+<?php /*
 
 use Mockery as m;
-use Way\Tests\Factory;
+//use Way\Tests\Factory;
 
 class RegistersTest extends TestCase {
 
 	public function __construct()
 	{
-		$this->mock = m::mock('Eloquent', 'Register');
 		$this->collection = m::mock('Illuminate\Database\Eloquent\Collection')->shouldDeferMissing();
 	}
 
 	public function setUp()
 	{
 		parent::setUp();
-
-		$this->attributes = Factory::register(['id' => 1]);
+        $this->mock = m::mock('Eloquent', 'Register');
+		//$this->attributes = Factory::register(['id' => 1]);
 		$this->app->instance('Register', $this->mock);
 	}
 

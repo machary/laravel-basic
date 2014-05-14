@@ -41,7 +41,7 @@
 <!-- Login button -->
 <div class="control-group">
     <div class="controls">
-        {{ Form::submit('Login', array('class' => 'btn')) }}
+        {{ Form::submit('Submit', array('class' => 'btn')) }}
     </div>
 </div>
 

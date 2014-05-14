@@ -1,0 +1,167 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+	<head>
+        <!--head-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="utf-8" />
+<title>Laravel Basic</title>
+<meta name="description" content="Laravel basic">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+<link rel="shortcut icon" href="favicon.ico">
+
+<link rel="stylesheet" href="http://localhost/laravel-basic/public/css/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="http://localhost/laravel-basic/public/css/bootstrap/bootstrap-theme.min.css">
+<link rel="stylesheet" href="http://localhost/laravel-basic/public/css/custom/form-style.css">
+<link rel="stylesheet" href="http://localhost/laravel-basic/public/css/custom/custom-styles.css">
+<link rel="stylesheet" href="http://localhost/laravel-basic/public/css/custom/responsiveslides.css">
+<link rel="stylesheet" href="http://localhost/laravel-basic/public/css/datatables/jquery.dataTables.css">
+
+<!-- Scripts-->
+<script src="http://localhost/laravel-basic/public/js/jquery/jquery-2.0.0.min.js"></script>
+<script src="http://localhost/laravel-basic/public/js/bootstrap/bootstrap.min.js"></script>
+<script src="http://localhost/laravel-basic/public/js/custom.js"></script>
+<script src="http://localhost/laravel-basic/public/js/responsiveslides.min.js"></script>
+
+<script src="http://localhost/laravel-basic/public/tinymce/tinymce.min.js"></script>
+<script src="http://localhost/laravel-basic/public/tinymce/jquery.tinymce.min.js"></script>
+<script src="http://localhost/laravel-basic/public/tinymce/x.min.js"></script>
+<script>
+    tinymce.init({
+        entity_encoding: 'raw',
+
+        selector: "textarea",theme: "modern",width: 680,height: 300,
+        plugins: [
+            "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+            "table contextmenu directionality emoticons paste textcolor responsivefilemanager"
+        ],
+        toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+        toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+        image_advtab: true ,
+
+        relative_urls:false,
+        remove_script_host:false,
+        convert_urls:false,
+        remove_linebreaks:true,
+        gecko_spellcheck:true,
+        fix_list_elements:true,
+        keep_styles:false,
+        entities:"38,amp,60,lt,62,gt",
+        accessibility_focus:true,
+        media_strict:false,
+        paste_remove_styles:true,
+        paste_remove_spans:true,
+        paste_strip_class_attributes:"all",
+        paste_text_use_dialog:true,
+        webkit_fake_resize:false,
+        preview_styles:"font-family font-weight text-decoration text-transform",
+        schema:"html5",
+
+        external_filemanager_path:"http://localhost/laravel-basic/public/filemanager/",
+        filemanager_title:"Responsive Filemanager" ,
+        external_plugins: { "filemanager" : "http://localhost/laravel-basic/public/filemanager/plugin.min.js"}
+    });
+</script>
+
+
+
+<!--/head-->		<style>
+			table form { margin-bottom: 0; }
+			form ul { margin-left: 0; list-style: none; }
+			.error { color: red; font-style: italic; }
+			body { padding-top: 20px; }
+		</style>
+	</head>
+
+	<body>
+
+		<div class="container">
+            <!-- top-navigation content -->
+             <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://localhost/laravel-basic/public" class="navbar-brand">Your Brand</a>
+        </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" role="button" id="drop1" href="#" >CRUD<b class="caret"></b></a>
+                    <ul aria-labelledby="drop2" role="menu" class="dropdown-menu">
+                        <li role="presentation"><a href="http://localhost/laravel-basic/public/islands" tabindex="-1" role="menuitem">Islands</a></li>
+                        <li class="divider" role="presentation"></li>
+                        <li role="presentation"><a href="http://localhost/laravel-basic/public/provinces" tabindex="-1" role="menuitem">Provinces</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" role="button" id="drop2" href="#" >Management<b class="caret"></b></a>
+                    <ul aria-labelledby="drop2" role="menu" class="dropdown-menu">
+                        <li role="presentation"><a href="http://localhost/laravel-basic/public/users" tabindex="-1" role="menuitem">User Login</a></li>
+                        <li class="divider" role="presentation"></li>
+                        <li role="presentation"><a href="http://localhost/laravel-basic/public/roles" tabindex="-1" role="menuitem">Roles</a></li>
+                    </ul>
+                </li>
+                <li class="active">
+                    <a href="http://localhost/laravel-basic/public/posts">Post</a>
+                </li>
+                <li>
+                    <a href="http://localhost/laravel-basic/public/slideshows">Slideshow</a>
+                </li>
+                <li>
+                    <a href="../customize">Menu Five</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="http://localhost/laravel-basic/public/login">Login</a></li>
+                            </ul>
+        </nav>
+    </div>
+</header>
+
+            <!-- Success-Messages -->
+            
+            </br>
+
+			
+<div>
+    <h2>Login into your account</h2>
+</div>
+
+<form method="POST" action="http://localhost/laravel-basic/public/login" accept-charset="UTF-8" class="form-horizontal"><input name="_token" type="hidden" value="Id5FQPmr6gVXsb0uTXuYs2Wb8GFQ5U4xaszDCS4j">
+<!-- Name -->
+<div class="control-group ">
+    <label for="username">Username</label>
+    <div class="controls">
+        <input name="username" type="text" id="username">            </div>
+</div>
+
+<!-- Email
+<div class="control-group ">
+    <label for="email">E-Mail</label>
+    <div class="controls">
+        <input name="email" type="text" id="email">            </div>
+</div>-->
+
+<!-- Password -->
+<div class="control-group ">
+    <label for="password">Password</label>
+    <div class="controls">
+        <input name="password" type="password" value="" id="password">            </div>
+</div>
+
+<!-- Login button -->
+<div class="control-group">
+    <div class="controls">
+        <input class="btn" type="submit" value="Login">    </div>
+</div>
+
+</form>		</div>
+
+	</body>
+
+</html>

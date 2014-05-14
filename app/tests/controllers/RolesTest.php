@@ -1,21 +1,21 @@
-<?php
+<?php /*
 
 use Mockery as m;
-use Way\Tests\Factory;
+//use Way\Tests\Factory;
 
 class RolesTest extends TestCase {
 
 	public function __construct()
 	{
-		$this->mock = m::mock('Eloquent', 'Role');
+
 		$this->collection = m::mock('Illuminate\Database\Eloquent\Collection')->shouldDeferMissing();
 	}
 
 	public function setUp()
 	{
 		parent::setUp();
-
-		$this->attributes = Factory::role(['id' => 1]);
+        $this->mock = m::mock('Eloquent', 'Role');
+		//$this->attributes = Factory::role(['id' => 1]);
 		$this->app->instance('Role', $this->mock);
 	}
 
