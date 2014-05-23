@@ -110,6 +110,7 @@ return array(
         'Bllim\Datatables\DatatablesServiceProvider',
         'Intervention\Image\ImageServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
+        'Cviebrock\EloquentSluggable\SluggableServiceProvider',
 
 	),
 

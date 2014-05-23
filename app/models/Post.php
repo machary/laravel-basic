@@ -1,6 +1,9 @@
 <?php
+use Cviebrock\EloquentSluggable\SluggableInterface;
+use Cviebrock\EloquentSluggable\SluggableTrait;
 
-class Post extends Eloquent {
+class Post extends Eloquent implements SluggableInterface
+{
 	protected $guarded = array();
 
 	public static $rules = array(
@@ -8,5 +11,13 @@ class Post extends Eloquent {
 		'title' => 'required',
 		'content' => 'required',
 		'status' => 'required'
+
 	);
+    use SluggableTrait;
+
+    protected $sluggable = array(
+        'build_from' => 'title',
+        'save_to'    => 'slug'
+    );
+
 }

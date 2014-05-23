@@ -8,11 +8,14 @@ class RolesTableSeeder extends Seeder {
 		// DB::table('roles')->truncate();
 
 		$roles = array(
-
+            array('role_name'=>'Administrator'),
+            array('role_name'=>'Data Entry'),
+            array('role_name'=>'Stakeholders')
 		);
 
+
 		// Uncomment the below to run the seeder
-		// DB::table('roles')->insert($roles);
+		DB::table('roles')->insert($roles);
 	}
 
 }

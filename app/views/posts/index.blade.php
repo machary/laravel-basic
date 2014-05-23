@@ -24,9 +24,9 @@
                     <td>{{{ $post->author }}}</td>
 					<td>{{{ $post->status }}}</td>
                     <td>{{{ $post->updated_at }}}</td>
-                    <td>{{ link_to_route('posts.edit', 'Edit', array($post->id), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('posts.edit', 'Edit', array($post->slug), array('class' => 'btn btn-info')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('posts.destroy', $post->id))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('posts.destroy', $post->slug))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>

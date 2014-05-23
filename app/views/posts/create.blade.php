@@ -17,11 +17,6 @@
         </li>
 
         <li>
-            {{ Form::label('image_path', 'Post Image:') }}
-            {{ Form::file('image_path') }}
-        </li>
-
-        <li>
             {{ Form::label('content', 'Content:') }}
             {{ Form::textarea('content') }}
         </li>

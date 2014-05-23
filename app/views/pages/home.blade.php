@@ -10,18 +10,17 @@
 </ul>
 
 <br>
-
+<div class="post col-sm-6">
 @foreach($r_post as $val)
-    <div class="post">
-        <img class="post-thumb" src="{{{ URL::to('uploads/images/thumbs/'.$val->image_path) }}}" />
+
         <div>
-            <h3><a href="{{ URL::to('posts/'.$val->id) }}">{{ $val->title }}</a></h3>
-            <span>{{ $val->updated_at }} | {{ $val->author }}</span>
-            <p>{{ substr($val->content,0,250) }}...</p>
+            <span>{{ $val->updated_at }} | By {{ $val->author }}</span>
+            <h3><a href="{{ URL::to('posts/'.$val->slug) }}">{{ $val->title }}</a></h3>
         </div>
-    </div>
+
 @endforeach
 
 {{ $r_post->links() }}
+</div>
 
 @stop

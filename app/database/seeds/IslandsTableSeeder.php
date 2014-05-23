@@ -8,11 +8,13 @@ class IslandsTableSeeder extends Seeder {
 		// DB::table('islands')->truncate();
 
 		$islands = array(
-
-		);
+            array('island' => 'Jawa'),
+            array('island' => 'Sumatera'),
+            array('island' => 'Kalimantan')
+        );
 
 		// Uncomment the below to run the seeder
-		// DB::table('islands')->insert($islands);
+		DB::table('islands')->insert($islands);
 	}
 
 }

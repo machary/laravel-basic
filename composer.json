@@ -9,7 +9,8 @@
         "bllim/datatables" : "*",
         "intervention/image": "1.*",
         "maatwebsite/excel": "dev-master",
-        "codeception/codeception":"@stable"
+        "codeception/codeception":"@stable",
+        "cviebrock/eloquent-sluggable": "2.*"
 	},
 	"autoload": {
 		"classmap": [

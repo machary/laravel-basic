@@ -1,0 +1,8 @@
+[2014-05-16 05:21:52] HomePageCept.php.INFO: am on page "/" [] []
+[2014-05-16 05:21:53] HomePageCept.php.INFO: click "Login" [] []
+[2014-05-16 05:21:53] HomePageCept.php.INFO: see "Username" [] []
+[2014-05-16 05:21:53] HomePageCept.php.INFO: fill field "username","admin" [] []
+[2014-05-16 05:21:53] HomePageCept.php.INFO: fill field "password","password" [] []
+[2014-05-16 05:21:53] HomePageCept.php.INFO: click "Submit" [] []
+[2014-05-16 05:21:56] HomePageCept.php.INFO: see "Success" [] []
+[2014-05-16 05:21:56] HomePageCept.php.INFO: PASSED [] []

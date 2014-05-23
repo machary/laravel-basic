@@ -7,9 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddForeignkeysToUsersTable' => $baseDir . '/app/database/migrations/2014_04_06_165352_add_foreignkeys_to_users_table.php',
-    'AddImagePathToPostsTable' => $baseDir . '/app/database/migrations/2014_04_19_033611_add_image_path_to_posts_table.php',
     'AddRememberTokenToUsersTable' => $baseDir . '/app/database/migrations/2014_04_26_151045_add_remember_token_to_users_table.php',
     'AddRoleIdToUsersTable' => $baseDir . '/app/database/migrations/2014_04_06_162448_add_role_id_to_users_table.php',
+    'AddSluggableColumns' => $baseDir . '/app/database/migrations/2014_05_15_230429_add_sluggable_columns.php',
     'AuthController' => $baseDir . '/app/controllers/AuthController.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
     'Behat\\Mink\\ClassLoader\\MapFileClassLoader' => $vendorDir . '/behat/mink/src/Behat/Mink/ClassLoader/MapFileClassLoader.php',
@@ -234,6 +234,10 @@ return array(
     'Crypt_Rijndael' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/Rijndael.php',
     'Crypt_TripleDES' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/TripleDES.php',
     'Crypt_Twofish' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/Twofish.php',
+    'Cviebrock\\EloquentSluggable\\SluggableInterface' => $vendorDir . '/cviebrock/eloquent-sluggable/src/Cviebrock/EloquentSluggable/SluggableInterface.php',
+    'Cviebrock\\EloquentSluggable\\SluggableServiceProvider' => $vendorDir . '/cviebrock/eloquent-sluggable/src/Cviebrock/EloquentSluggable/SluggableServiceProvider.php',
+    'Cviebrock\\EloquentSluggable\\SluggableTableCommand' => $vendorDir . '/cviebrock/eloquent-sluggable/src/Cviebrock/EloquentSluggable/SluggableTableCommand.php',
+    'Cviebrock\\EloquentSluggable\\SluggableTrait' => $vendorDir . '/cviebrock/eloquent-sluggable/src/Cviebrock/EloquentSluggable/SluggableTrait.php',
     'DatabaseSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
     'ElementNotDisplayedWebDriverError' => $vendorDir . '/facebook/webdriver/lib/WebDriverExceptions.php',
     'ElementNotSelectableWebDriverError' => $vendorDir . '/facebook/webdriver/lib/WebDriverExceptions.php',
