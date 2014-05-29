@@ -17,6 +17,7 @@
 <!-- Scripts-->
 <script src="{{ URL::asset('js/jquery/jquery-2.0.0.min.js') }}"></script>
 <script src="{{ URL::asset('js/bootstrap/bootstrap.min.js') }}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script src="{{ URL::asset('js/custom.js') }}"></script>
 <script src="{{ URL::asset('js/responsiveslides.min.js') }}"></script>
 
@@ -60,8 +61,5 @@
         external_plugins: { "filemanager" : "{{ URL::asset('filemanager/plugin.min.js') }}"}
     });
 </script>
-
-
-
 @show
 <!--/head-->

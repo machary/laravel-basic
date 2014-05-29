@@ -25,7 +25,6 @@ class ProvincesController extends BaseController {
 
 		return View::make('provinces.index', compact('provinces'));
 	}
-
 	/**
 	 * Show the form for creating a new resource.
 	 *

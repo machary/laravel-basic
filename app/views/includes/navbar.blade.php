@@ -34,7 +34,7 @@
                     <a href="{{{ URL::to('slideshows') }}}">Slideshow</a>
                 </li>
                 <li>
-                    <a href="../customize">Menu Five</a>
+                    <a href="{{{ URL::to('peta') }}}">Peta</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

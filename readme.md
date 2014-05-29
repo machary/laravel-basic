@@ -7,11 +7,12 @@ Web application with basic features
 3. Laravel 4.1
 4. Jeffrey Way Generator (Version 1.1) - https://github.com/JeffreyWay/Laravel-4-Generators
 5. Intervention - https://packagist.org/packages/intervention/image
-6. TinyMce - http://www.tinymce.com
-7. Responsive Filemanager - http://www.responsivefilemanager.com/
-8. Responsive Slider - http://responsiveslides.com/
-9. Php Excel - https://github.com/Maatwebsite/laravel4-PHPExcel
-10. Codeception - http://courses.tutsplus.com/courses/modern-testing-in-php-with-codeception
+6. TinyMce
+7. Responsive Filemanager
+8. Responsive Slider
+9. Php Excel
+10. Codeception
+11. Google Map API v.3
 
 ### Features
 1. Basic Authentication
@@ -20,6 +21,7 @@ Web application with basic features
 4. Integrated TinyMce with Responsive Filemanager Plugins (media uploader)
 5. Responsive Image Slider
 6. User can import data from .xls file
+7. User can Add Coordinate and view it on Map (AJAX)
 
 ### Implemented Tutorial
 1. Jeffry Way Generator (Version 1.0) - Automatic CRUD Form Generator
@@ -33,6 +35,8 @@ Web application with basic features
 8. Responsive Slider - http://responsiveslides.com/
 9. Import from xls - https://github.com/Maatwebsite/laravel4-PHPExcel
 10. codeception testing - http://courses.tutsplus.com/courses/modern-testing-in-php-with-codeception
+11. Sluggable - https://github.com/cviebrock/eloquent-sluggable
+12. http://stackoverflow.com/questions/13674194/google-maps-api-multiple-markers-info-window-only-showing-last-element
 
 
 

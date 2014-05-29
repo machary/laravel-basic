@@ -23,8 +23,8 @@ Route::get('logout', 'AuthController@getLogout');
 Route::group(array('before' => 'auth'), function()
 {
     Route::get('admin', 'HomeController@showAdmin');
-    Route::get('cmos/response','CmosController@response');
-    Route::resource('/cmos', 'CmosController');
+    Route::get('peta/response',['uses' => 'PetaController@response']);
+    Route::post('peta/simpan',['uses' => 'PetaController@simpan']);
     Route::get('islands/import','IslandsController@import');
     Route::post('islands/port','IslandsController@port');
     Route::resource('islands', 'IslandsController');
@@ -33,6 +33,7 @@ Route::group(array('before' => 'auth'), function()
     Route::resource('roles', 'RolesController');
     Route::resource('posts', 'PostsController');
     Route::resource('slideshows', 'SlideshowsController');
+    Route::resource('peta','PetaController');
 });
 
 
