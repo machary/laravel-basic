@@ -1,4 +1,4 @@
-<header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
+<div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
@@ -46,4 +46,4 @@
             </ul>
         </nav>
     </div>
-</header>
+</div>

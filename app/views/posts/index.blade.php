@@ -2,12 +2,15 @@
 
 @section('main')
 
-<h1>All Posts</h1>
+<div class="page-header">
+    <h1>Posts <small>Displays existing post</small></h1>
+</div>
 
 <p>{{ link_to_route('posts.create', 'Add new post') }}</p>
 
 @if ($posts->count())
-	<table class="table table-striped table-bordered">
+<div class="table-responsive">
+	<table class="table table-bordered table-hover">
 		<thead>
 			<tr>
                 <th>Title</th>
@@ -34,6 +37,7 @@
 			@endforeach
 		</tbody>
 	</table>
+</div>
 @else
 	There are no posts
 @endif

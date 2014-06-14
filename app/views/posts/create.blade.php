@@ -2,34 +2,39 @@
 
 @section('main')
 
-<h1>Create Post</h1>
+<div class="page-header">
+    <h1>New Post <small>Creating new post</small></h1>
+</div>
 
-{{ Form::open(array('route' => 'posts.store','files' => true, 'method' => 'post')) }}
-	<ul>
-        <li>
-            {{ Form::label('author', 'Author:') }}
-            {{ Form::text('author') }}
-        </li>
-
-        <li>
-            {{ Form::label('title', 'Title:') }}
-            {{ Form::text('title') }}
+{{ Form::open(array('route' => 'posts.store','files' => true, 'method' => 'post','class' => 'form-horizontal')) }}
+<div class="col-md-8">
+    <ul>
+        <li class="input-group">
+            <span class="input-group-addon glyphicon glyphicon-bookmark"></span>
+            {{ Form::text('title', null, array('class'=>'form-control','placeholder'=>'Post Title')) }}
         </li>
 
         <li>
             {{ Form::label('content', 'Content:') }}
             {{ Form::textarea('content') }}
         </li>
-
-        <li>
-            {{ Form::label('status', 'Status:') }}
-            {{ Form::select('status', array('draft' => 'Draft', 'published' => 'Published')) }}
+    </ul>
+</div>
+<div class="col-md-4" >
+    <ul>
+        <li class="input-group">
+            <span class="input-group-addon glyphicon glyphicon-user"></span>
+            {{ Form::text('author', null, array('class'=>'form-control','placeholder'=>'Author')) }}
         </li>
-
-		<li>
-			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-		</li>
-	</ul>
+        <li class="input-group">
+            <span class="input-group-addon glyphicon glyphicon-eye-open"></span>
+            {{ Form::select('status', array('draft' => 'Draft', 'published' => 'Published'), null, array('class' => 'form-control')) }}
+        </li>
+        <li>
+            {{ Form::submit('Save Post', array('class' => 'btn btn-info')) }}
+        </li>
+    </ul>
+</div>
 {{ Form::close() }}
 
 @if ($errors->any())

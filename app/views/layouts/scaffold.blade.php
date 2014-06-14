@@ -2,19 +2,14 @@
 <html xmlns="http://www.w3.org/1999/html">
 	<head>
         @include('includes.head')
-		<style>
-			table form { margin-bottom: 0; }
-			form ul { margin-left: 0; list-style: none; }
-			.error { color: red; font-style: italic; }
-			body { padding-top: 20px; }
-		</style>
 	</head>
 
 	<body>
+        <!-- top-navigation content -->
+        @include('includes.navbar')
 
-		<div class="container">
-            <!-- top-navigation content -->
-             @include('includes.navbar')
+		<div role="main" class="container theme-showcase">
+
 
             <!-- Success-Messages -->
             @if ($message = Session::get('success'))
@@ -25,7 +20,7 @@
             </div>
             @endif
 
-            </br>
+
 
 			@yield('main')
 		</div>

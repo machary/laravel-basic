@@ -127,7 +127,7 @@ class PostsController extends BaseController {
 	{
         $image = Post::find($id);
         //find old image and delete it
-        $destinationPath    = 'uploads/images/'; // The destination were you store the image.
+        $destinationPath    = 'uploads/images/'; // The destination where you store the image.
         File::delete($destinationPath. $image['image_path']);
         File::delete($destinationPath.'thumbs/'.$image['image_path']);
 

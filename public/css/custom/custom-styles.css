@@ -1,3 +1,5 @@
+body { padding-top: 50px; }
+
 .post{
     margin-bottom:10px;
     float:left;
@@ -24,4 +26,20 @@
     min-width: 160px;
 }
 
-#map{height:500px; width:100%;}
+#map{height:528px; width:100%;}
+
+table form { margin-bottom: 0; }
+form ul { margin-left: 0; list-style: none; }
+.error { color: red; font-style: italic; }
+
+.form-horizontal .input-group{
+    margin-bottom: 10px;
+}
+
+.bs-callout-info {
+    background-color: #2F2F2F;
+    border-color: #5BC0DE;
+    padding: 20px;
+    color: #FFFFFF;
+
+}

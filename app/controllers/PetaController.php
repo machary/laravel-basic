@@ -71,7 +71,7 @@ class PetaController extends BaseController {
 	 */
 	public function show($id)
 	{
-        return View::make('petas.show');
+        //
 	}
 
 	/**
@@ -82,7 +82,7 @@ class PetaController extends BaseController {
 	 */
 	public function edit($id)
 	{
-        return View::make('petas.edit');
+        //
 	}
 
 	/**
@@ -104,7 +104,12 @@ class PetaController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+       //
 	}
+
+    public function hapus($id){
+       $this->peta->find($id)->delete();
+      return Redirect::route('peta.index');
+    }
 
 }

@@ -9,8 +9,8 @@
 <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
 <link rel="shortcut icon" href="favicon.ico">
 
-<link rel="stylesheet" href="http://localhost/laravel-basic/public/css/bootstrap/bootstrap.min.css">
-<link rel="stylesheet" href="http://localhost/laravel-basic/public/css/bootstrap/bootstrap-theme.min.css">
+<link rel="stylesheet" href="http://localhost/laravel-basic/public/css/bootstrap-3.1.1-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://localhost/laravel-basic/public/css/bootstrap-3.1.1-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="http://localhost/laravel-basic/public/css/custom/form-style.css">
 <link rel="stylesheet" href="http://localhost/laravel-basic/public/css/custom/custom-styles.css">
 <link rel="stylesheet" href="http://localhost/laravel-basic/public/css/custom/responsiveslides.css">
@@ -18,7 +18,8 @@
 
 <!-- Scripts-->
 <script src="http://localhost/laravel-basic/public/js/jquery/jquery-2.0.0.min.js"></script>
-<script src="http://localhost/laravel-basic/public/js/bootstrap/bootstrap.min.js"></script>
+<script src="http://localhost/laravel-basic/public/css/bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script src="http://localhost/laravel-basic/public/js/custom.js"></script>
 <script src="http://localhost/laravel-basic/public/js/responsiveslides.min.js"></script>
 
@@ -62,9 +63,6 @@
         external_plugins: { "filemanager" : "http://localhost/laravel-basic/public/filemanager/plugin.min.js"}
     });
 </script>
-
-
-
 <!--/head-->		<style>
 			table form { margin-bottom: 0; }
 			form ul { margin-left: 0; list-style: none; }
@@ -74,10 +72,8 @@
 	</head>
 
 	<body>
-
-		<div class="container">
-            <!-- top-navigation content -->
-             <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
+        <!-- top-navigation content -->
+        <div role="navigation" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
@@ -113,7 +109,7 @@
                     <a href="http://localhost/laravel-basic/public/slideshows">Slideshow</a>
                 </li>
                 <li>
-                    <a href="../customize">Menu Five</a>
+                    <a href="http://localhost/laravel-basic/public/peta">Peta</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -121,46 +117,36 @@
                             </ul>
         </nav>
     </div>
-</header>
+</div>
+
+		<div role="main" class="container theme-showcase">
+
 
             <!-- Success-Messages -->
             
-            </br>
+
 
 			
-<div>
-    <h2>Login into your account</h2>
-</div>
+<div class="container">
+    <form method="POST" action="http://localhost/laravel-basic/public/login" accept-charset="UTF-8" class="form-signin" role="form"><input name="_token" type="hidden" value="3FEtq7es82OndhslVjD1mzyJUuDnX6EhSvKWSW6M">        <h2 class="form-signin-heading">Please sign in</h2>
+        <!-- Name -->
+        <div class="control-group ">
+            <div class="controls">
+                <input placeholder="Username" class="form-control" name="username" type="text">                            </div>
+        </div>
+        <!-- Password -->
+        <div class="control-group ">
+            <div class="controls">
+                <input placeholder="Password" class="form-control" name="password" type="password" value="">                            </div>
+        </div>
+        <!-- Login button -->
+        <div class="control-group">
+            <div class="controls">
+                <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">            </div>
+        </div>
+    </form></div>
 
-<form method="POST" action="http://localhost/laravel-basic/public/login" accept-charset="UTF-8" class="form-horizontal"><input name="_token" type="hidden" value="Id5FQPmr6gVXsb0uTXuYs2Wb8GFQ5U4xaszDCS4j">
-<!-- Name -->
-<div class="control-group ">
-    <label for="username">Username</label>
-    <div class="controls">
-        <input name="username" type="text" id="username">            </div>
-</div>
-
-<!-- Email
-<div class="control-group ">
-    <label for="email">E-Mail</label>
-    <div class="controls">
-        <input name="email" type="text" id="email">            </div>
-</div>-->
-
-<!-- Password -->
-<div class="control-group ">
-    <label for="password">Password</label>
-    <div class="controls">
-        <input name="password" type="password" value="" id="password">            </div>
-</div>
-
-<!-- Login button -->
-<div class="control-group">
-    <div class="controls">
-        <input class="btn" type="submit" value="Login">    </div>
-</div>
-
-</form>		</div>
+		</div>
 
 	</body>
 

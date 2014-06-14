@@ -2,48 +2,30 @@
 
 @section('main')
 
-<div>
-    <h2>Login into your account</h2>
+<div class="container">
+    {{ Form::open(array('url' => 'login', 'class' => 'form-signin', 'role'=>'form')) }}
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <!-- Name -->
+        <div class="control-group {{{ $errors->has('username') ? 'error' : '' }}}">
+            <div class="controls">
+                {{ Form::text('username', Input::old('username'),array('placeholder'=> 'Username', 'class'=>'form-control')) }}
+                {{ $errors->first('username') }}
+            </div>
+        </div>
+        <!-- Password -->
+        <div class="control-group {{{ $errors->has('password') ? 'error' : '' }}}">
+            <div class="controls">
+                {{ Form::password('password',array('placeholder'=>'Password','class'=> 'form-control')) }}
+                {{ $errors->first('password') }}
+            </div>
+        </div>
+        <!-- Login button -->
+        <div class="control-group">
+            <div class="controls">
+                {{ Form::submit('Submit', array('class' => 'btn btn-lg btn-primary btn-block')) }}
+            </div>
+        </div>
+    {{ Form::close() }}
 </div>
 
-{{ Form::open(array('url' => 'login', 'class' => 'form-horizontal')) }}
-
-<!-- Name -->
-<div class="control-group {{{ $errors->has('username') ? 'error' : '' }}}">
-    {{ Form::label('username', 'Username') }}
-
-    <div class="controls">
-        {{ Form::text('username', Input::old('username')) }}
-        {{ $errors->first('username') }}
-    </div>
-</div>
-
-<!-- Email
-<div class="control-group {{{ $errors->has('email') ? 'error' : '' }}}">
-    {{ Form::label('email', 'E-Mail') }}
-
-    <div class="controls">
-        {{ Form::text('email', Input::old('email')) }}
-        {{ $errors->first('email') }}
-    </div>
-</div>-->
-
-<!-- Password -->
-<div class="control-group {{{ $errors->has('password') ? 'error' : '' }}}">
-    {{ Form::label('password', 'Password') }}
-
-    <div class="controls">
-        {{ Form::password('password') }}
-        {{ $errors->first('password') }}
-    </div>
-</div>
-
-<!-- Login button -->
-<div class="control-group">
-    <div class="controls">
-        {{ Form::submit('Submit', array('class' => 'btn')) }}
-    </div>
-</div>
-
-{{ Form::close() }}
 @stop

@@ -7,8 +7,8 @@
 <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
 <link rel="shortcut icon" href="favicon.ico">
 
-<link rel="stylesheet" href="{{ URL::asset('css/bootstrap/bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ URL::asset('css/bootstrap/bootstrap-theme.min.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('css/bootstrap-3.1.1-dist/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ URL::asset('css/bootstrap-3.1.1-dist/css/bootstrap-theme.min.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('css/custom/form-style.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('css/custom/custom-styles.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('css/custom/responsiveslides.css') }}">
@@ -16,8 +16,7 @@
 
 <!-- Scripts-->
 <script src="{{ URL::asset('js/jquery/jquery-2.0.0.min.js') }}"></script>
-<script src="{{ URL::asset('js/bootstrap/bootstrap.min.js') }}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script src="{{ URL::asset('css/bootstrap-3.1.1-dist/js/bootstrap.min.js') }}"></script>
 <script src="{{ URL::asset('js/custom.js') }}"></script>
 <script src="{{ URL::asset('js/responsiveslides.min.js') }}"></script>
 

@@ -1,22 +1,26 @@
 <!doctype html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     @include('includes.head')
 </head>
+
 <body>
-<div id="main-container">
+<!-- top-navigation content -->
+@include('includes.navbar')
 
-    <!-- top-navigation content -->
-    @include('includes.navbar')
-
-    <!-- main content -->
-    <div id="content">
-        @yield('content')
+<div role="main" class="container theme-showcase">
+    <!-- Success-Messages -->
+    @if ($message = Session::get('success'))
+    <div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>Success</h4>
+        {{{ $message }}}
     </div>
-
+    @endif
 </div>
 
-@section('scripts')
-@show
+@yield('main')
+
 </body>
+
 </html>
